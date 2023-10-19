@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl5ifjq02x2jm"]
+
+[ext_resource type="Script" path="res://scripts/GlowEmitter.gd" id="1_k38ev"]
+[ext_resource type="PackedScene" uid="uid://csi5aufbw061c" path="res://scenes/light_particle_2d.tscn" id="2_v4xmq"]
+
+[node name="GlowEmitter" type="Node2D"]
+script = ExtResource("1_k38ev")
+light_particle = ExtResource("2_v4xmq")
+color = Color(1, 0.701961, 0.109804, 1)

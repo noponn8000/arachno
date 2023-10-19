@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://csi5aufbw061c"]
+
+[ext_resource type="Texture2D" uid="uid://dyqpxjgbsytrv" path="res://assets/light_texture.webp" id="1_ejus4"]
+[ext_resource type="Script" path="res://scripts/LightParticle2D.gd" id="2_lfc1s"]
+
+[node name="LightParticle2D" type="PointLight2D"]
+texture = ExtResource("1_ejus4")
+texture_scale = 0.1
+script = ExtResource("2_lfc1s")

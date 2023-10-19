@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddwa05xl5f2ip"]
+
+[ext_resource type="Script" path="res://scripts/BoundaryGenerator.gd" id="1_4cu4y"]
+
+[node name="BoundaryGenerator" type="Line2D"]
+script = ExtResource("1_4cu4y")

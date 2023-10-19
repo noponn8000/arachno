@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://u6c65qq1lvg5"]
+
+[ext_resource type="Script" path="res://scripts/health_bar.gd" id="1_mpng2"]
+[ext_resource type="Texture2D" uid="uid://carknvhkake85" path="res://assets/healthframeend.png" id="1_uuk1y"]
+[ext_resource type="Texture2D" uid="uid://fl03ajlc5f2e" path="res://assets/healthframemiddle.png" id="2_5yu1e"]
+[ext_resource type="Texture2D" uid="uid://bet5aasg72f2h" path="res://assets/heart.png" id="3_2yl5k"]
+[ext_resource type="Texture2D" uid="uid://bosvcogklo05q" path="res://assets/healthbarmiddle.png" id="4_41viw"]
+
+[sub_resource type="Animation" id="Animation_5b4e1"]
+resource_name = "shake"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nft4v"]
+_data = {
+"shake": SubResource("Animation_5b4e1")
+}
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mpng2")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 40.0
+
+[node name="HealthFrameEnd" type="Sprite2D" parent="Control"]
+texture_filter = 1
+position = Vector2(33.75, 4)
+texture = ExtResource("1_uuk1y")
+
+[node name="HealthFrameMiddle" type="Sprite2D" parent="Control"]
+texture_filter = 1
+position = Vector2(8, 4)
+texture = ExtResource("2_5yu1e")
+offset = Vector2(9, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 18, 8)
+
+[node name="Heart" type="Sprite2D" parent="Control"]
+texture_filter = 1
+position = Vector2(4, 4)
+texture = ExtResource("3_2yl5k")
+
+[node name="HealthBarMiddle" type="Sprite2D" parent="Control"]
+texture_filter = 1
+position = Vector2(8, 4)
+texture = ExtResource("4_41viw")
+centered = false
+offset = Vector2(0, -4)
+flip_h = true
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nft4v")
+}

@@ -1,0 +1,340 @@
+[gd_scene load_steps=24 format=3 uid="uid://bgit7d2l4j65"]
+
+[ext_resource type="Script" path="res://scripts/ghost.gd" id="1_rpvi4"]
+[ext_resource type="Script" path="res://scenes/ScytheSwing.gd" id="2_5j26t"]
+[ext_resource type="Texture2D" uid="uid://ehbkwavc41j0" path="res://assets/swing.png" id="2_ecmme"]
+[ext_resource type="Texture2D" uid="uid://yfndgxyd3ht1" path="res://assets/scythe.png" id="3_t303g"]
+[ext_resource type="Texture2D" uid="uid://s7duu14ecji0" path="res://assets/ghost.png" id="3_ykogg"]
+[ext_resource type="Texture2D" uid="uid://dyqpxjgbsytrv" path="res://assets/light_texture.webp" id="4_e01gn"]
+[ext_resource type="PackedScene" uid="uid://dl5ifjq02x2jm" path="res://scenes/glow_emitter.tscn" id="5_b7jf5"]
+[ext_resource type="Script" path="res://scripts/Hurtbox.gd" id="6_n4jda"]
+[ext_resource type="Script" path="res://scripts/Hitbox.gd" id="7_sdfg6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qe34"]
+size = Vector2(16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axjno"]
+atlas = ExtResource("2_ecmme")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nu1wg"]
+atlas = ExtResource("2_ecmme")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d84lm"]
+atlas = ExtResource("2_ecmme")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sykir"]
+atlas = ExtResource("2_ecmme")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rm1q8"]
+atlas = ExtResource("2_ecmme")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_74upb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axjno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nu1wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d84lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sykir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rm1q8")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_1khnl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scythe:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.424581]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Scythe:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ScytheSwing/Hitbox:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ScytheSwing/Swing:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ynq3r"]
+resource_name = "attack"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scythe:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 1.7),
+"transitions": PackedFloat32Array(0.420448, 0.153893, 1, 1),
+"update": 0,
+"values": [-0.436332, 0.349066, -6.28319, -0.436332]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Scythe:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2, 1.5, 1.7),
+"transitions": PackedFloat32Array(0.258816, 0.0853776, 1, 0.176777, 1),
+"update": 0,
+"values": [Vector2(-4, 2), Vector2(-2, 1), Vector2(-2, 1), Vector2(-2, 3), Vector2(-4, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ScytheSwing/Hitbox:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ScytheSwing/Swing:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ScytheSwing/Swing:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ScytheSwing/Swing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"default", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ScytheSwing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"update_rotation"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_k58lv"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scythe:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-3, 2), Vector2(-3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_cuetj"]
+resource_name = "take_damage"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00217628, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.784314, 0, 0, 1), Color(1, 1, 1, 1), Color(0.862745, 0, 0, 1), Color(2.00392, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ScytheSwing:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lsxb4"]
+_data = {
+"RESET": SubResource("Animation_1khnl"),
+"attack": SubResource("Animation_ynq3r"),
+"idle": SubResource("Animation_k58lv"),
+"take_damage": SubResource("Animation_cuetj")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yuvoe"]
+size = Vector2(16, 20)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r76qa"]
+emission_shape = 2
+emission_sphere_radius = 10.0
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 5.0
+radial_accel_max = 5.0
+color = Color(0, 1, 1, 1)
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="GhostScythe" type="CharacterBody2D" node_paths=PackedStringArray("anim")]
+motion_mode = 1
+script = ExtResource("1_rpvi4")
+anim = NodePath("AnimationPlayer")
+
+[node name="ScytheSwing" type="Node2D" parent="."]
+script = ExtResource("2_5j26t")
+
+[node name="Hitbox" type="Area2D" parent="ScytheSwing"]
+visible = false
+collision_layer = 2
+monitoring = false
+script = ExtResource("7_sdfg6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScytheSwing/Hitbox"]
+position = Vector2(12, 0.5)
+shape = SubResource("RectangleShape2D_0qe34")
+
+[node name="Swing" type="AnimatedSprite2D" parent="ScytheSwing"]
+visible = false
+texture_filter = 1
+position = Vector2(10, 0)
+sprite_frames = SubResource("SpriteFrames_74upb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_ykogg")
+
+[node name="Scythe" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-3, 2)
+rotation = -0.424581
+texture = ExtResource("3_t303g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_lsxb4")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_yuvoe")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.329412, 0.356863, 1, 1)
+texture = ExtResource("4_e01gn")
+texture_scale = 0.25
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_r76qa")
+trail_enabled = true
+
+[node name="GlowEmitter" parent="." instance=ExtResource("5_b7jf5")]
+emitting = true
+color = Color(0.329412, 0.356863, 1, 1)
+intensity = 0.25
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("6_n4jda")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_yuvoe")
