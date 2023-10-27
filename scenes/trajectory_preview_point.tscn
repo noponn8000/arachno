@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://rpvil3q4jvg1"]
+
+[ext_resource type="Texture2D" uid="uid://1mpw268bem6c" path="res://assets/trajectory_preview_point.png" id="1_mamuy"]
+
+[node name="PreviewPoint" type="PathFollow2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_mamuy")

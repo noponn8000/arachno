@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwmygjr5xb68r"]
+
+[ext_resource type="PackedScene" uid="uid://u6c65qq1lvg5" path="res://scenes/health_bar.tscn" id="1_fbbsw"]
+[ext_resource type="PackedScene" uid="uid://850474ld0y61" path="res://scenes/inventory.tscn" id="2_mby67"]
+
+[node name="HUD" type="CanvasLayer"]
+offset = Vector2(-288, -162)
+transform = Transform2D(1, 0, 0, 1, -288, -162)
+
+[node name="HealthBar" parent="." groups=["health_bar"] instance=ExtResource("1_fbbsw")]
+z_index = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 290.0
+offset_top = 168.0
+offset_right = 290.0
+offset_bottom = 168.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(4, 4)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Inventory" parent="." instance=ExtResource("2_mby67")]
+anchors_preset = -1
+offset_left = 283.0
+offset_top = 165.0
+offset_right = 283.0
+offset_bottom = 165.0
+size_flags_horizontal = 4

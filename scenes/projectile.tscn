@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccsi37d3otga8"]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_t42c5"]
+[ext_resource type="Script" path="res://scripts/Hitbox.gd" id="2_6u8vo"]
+
+[node name="Projectile" type="CharacterBody2D"]
+rotation = 0.00666975
+collision_layer = 8
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_t42c5")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("2_6u8vo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

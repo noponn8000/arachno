@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://bunw8i4hkwgi7"]
+
+[ext_resource type="Script" path="res://scripts/inventory.gd" id="1_ura3s"]
+[ext_resource type="Texture2D" uid="uid://cyxuvk3hwevju" path="res://assets/inventory/box.png" id="2_hbe84"]
+[ext_resource type="Texture2D" uid="uid://c3vhwhwwrc7yl" path="res://assets/inventory/boxtop.png" id="3_yr746"]
+[ext_resource type="Texture2D" uid="uid://bdq7f7pdu5mwn" path="res://assets/inventory/boxleft.png" id="4_k11sb"]
+[ext_resource type="Texture2D" uid="uid://0w7beaj3xt4y" path="res://assets/inventory/boxfill.png" id="5_kawa2"]
+[ext_resource type="Texture2D" uid="uid://dk7wgi4l1s23h" path="res://assets/inventory/boxright.png" id="6_6sr26"]
+[ext_resource type="Texture2D" uid="uid://vqpo4h8wi24c" path="res://assets/inventory/boxbottom.png" id="7_8u6ed"]
+
+[node name="InventoryWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_ura3s")
+
+[node name="Top" type="Node2D" parent="."]
+
+[node name="BoxTopLeft" type="Sprite2D" parent="Top"]
+texture_filter = 1
+position = Vector2(8, 8)
+texture = ExtResource("2_hbe84")
+hframes = 9
+frame = 1
+region_rect = Rect2(-3.69158, 7.40849, 40.4572, 1.67574)
+
+[node name="BoxTop" type="Sprite2D" parent="Top"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(32, 8)
+texture = ExtResource("3_yr746")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 16)
+
+[node name="BoxTopRight" type="Sprite2D" parent="Top"]
+texture_filter = 1
+position = Vector2(56, 8)
+texture = ExtResource("2_hbe84")
+hframes = 9
+frame = 4
+region_rect = Rect2(-3.69158, 7.40849, 40.4572, 1.67574)
+
+[node name="Middle" type="Node2D" parent="."]
+position = Vector2(0, 24)
+
+[node name="BoxLeft" type="Sprite2D" parent="Middle"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(8, 8)
+texture = ExtResource("4_k11sb")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 32)
+
+[node name="BoxFill" type="Sprite2D" parent="Middle"]
+position = Vector2(32, 8)
+texture = ExtResource("5_kawa2")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="BoxRight" type="Sprite2D" parent="Middle"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(56, 8)
+texture = ExtResource("6_6sr26")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 32)
+
+[node name="Bottom" type="Node2D" parent="."]
+position = Vector2(0, 48)
+
+[node name="BoxBottomLeft" type="Sprite2D" parent="Bottom"]
+texture_filter = 1
+position = Vector2(8, 8)
+texture = ExtResource("2_hbe84")
+hframes = 9
+frame = 2
+region_rect = Rect2(-3.69158, 7.40849, 40.4572, 1.67574)
+
+[node name="BoxBottom" type="Sprite2D" parent="Bottom"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(32, 8)
+texture = ExtResource("7_8u6ed")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 16)
+
+[node name="BoxBottomRight" type="Sprite2D" parent="Bottom"]
+texture_filter = 1
+position = Vector2(56, 8)
+texture = ExtResource("2_hbe84")
+hframes = 9
+frame = 3
+region_rect = Rect2(-3.69158, 7.40849, 40.4572, 1.67574)

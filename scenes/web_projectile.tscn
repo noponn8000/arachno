@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://de4wxdrylmjr0"]
+
+[ext_resource type="PackedScene" uid="uid://ccsi37d3otga8" path="res://scenes/projectile.tscn" id="1_b6e55"]
+[ext_resource type="Texture2D" uid="uid://b7n4tdmkhshtf" path="res://assets/webprojectile.png" id="2_6bgby"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d7mdp"]
+radius = 6.08276
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y54lp"]
+radius = 6.08276
+
+[node name="WebProjectile" instance=ExtResource("1_b6e55")]
+scale = Vector2(0.5, 0.5)
+speed = 250.0
+spread = 5.0
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_d7mdp")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_y54lp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="3"]
+texture_filter = 1
+texture = ExtResource("2_6bgby")

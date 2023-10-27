@@ -1,7 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://bgit7d2l4j65"]
+[gd_scene load_steps=26 format=3 uid="uid://b38y3at01uha7"]
 
 [ext_resource type="Script" path="res://scripts/ghost.gd" id="1_rpvi4"]
-[ext_resource type="Script" path="res://scenes/ScytheSwing.gd" id="2_5j26t"]
+[ext_resource type="Script" path="res://scripts/ScytheSwing.gd" id="2_5j26t"]
 [ext_resource type="Texture2D" uid="uid://ehbkwavc41j0" path="res://assets/swing.png" id="2_ecmme"]
 [ext_resource type="Texture2D" uid="uid://yfndgxyd3ht1" path="res://assets/scythe.png" id="3_t303g"]
 [ext_resource type="Texture2D" uid="uid://s7duu14ecji0" path="res://assets/ghost.png" id="3_ykogg"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dl5ifjq02x2jm" path="res://scenes/glow_emitter.tscn" id="5_b7jf5"]
 [ext_resource type="Script" path="res://scripts/Hurtbox.gd" id="6_n4jda"]
 [ext_resource type="Script" path="res://scripts/Hitbox.gd" id="7_sdfg6"]
+[ext_resource type="Script" path="res://scripts/SimpleEnemyAI.gd" id="10_ib4tb"]
+[ext_resource type="Script" path="res://scripts/health_manager.gd" id="11_4r54t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qe34"]
 size = Vector2(16, 17)
@@ -272,6 +274,7 @@ hue_variation_min = 1.0
 hue_variation_max = 1.0
 
 [node name="GhostScythe" type="CharacterBody2D" node_paths=PackedStringArray("anim")]
+collision_layer = 4
 motion_mode = 1
 script = ExtResource("1_rpvi4")
 anim = NodePath("AnimationPlayer")
@@ -332,9 +335,15 @@ intensity = 0.25
 
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
-collision_layer = 2
+collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_n4jda")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_yuvoe")
+
+[node name="SimpleEnemyAI" type="Node2D" parent="."]
+script = ExtResource("10_ib4tb")
+
+[node name="HealthManager" type="Node" parent="."]
+script = ExtResource("11_4r54t")

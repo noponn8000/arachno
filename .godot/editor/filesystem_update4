@@ -1,0 +1,15 @@
+res://scenes/trajectory_projectile_manager.tscn
+res://scripts/trajectory_projectile_manager.gd
+res://scripts/trajectory_projectile.gd
+res://scenes/player-new.tscn
+res://scenes/trajectory.tscn
+res://scenes/trajectory_projectile.tscn
+res://scenes/inventory.tscn
+res://scenes/trajectory_preview_point.tscn
+res://scripts/trajectory.gd
+res://scenes/world.tscn
+res://scenes/ghost.tscn
+res://scenes/ghost-scythe.tscn
+res://scripts/inventory.gd
+res://scenes/inventory_window.tscn
+res://hud.tscn

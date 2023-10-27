@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ctxu6dvrtq682"]
+[gd_scene load_steps=26 format=3 uid="uid://ctxu6dvrtq682"]
 
 [ext_resource type="Script" path="res://scripts/ghost.gd" id="1_nhq3i"]
 [ext_resource type="Texture2D" uid="uid://s7duu14ecji0" path="res://assets/ghost.png" id="1_wyd7b"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cnr5vpig70lw3" path="res://assets/smashup.png" id="4_7n16r"]
 [ext_resource type="Script" path="res://scripts/Hurtbox.gd" id="4_vkxmp"]
 [ext_resource type="Script" path="res://scripts/Hitbox.gd" id="6_aqy4s"]
+[ext_resource type="Script" path="res://scripts/SimpleEnemyAI.gd" id="10_305y2"]
+[ext_resource type="Script" path="res://scripts/health_manager.gd" id="11_xl8a1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kv6b7"]
 atlas = ExtResource("2_6sgy1")
@@ -490,6 +492,8 @@ hue_variation_min = 1.0
 hue_variation_max = 1.0
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("anim")]
+collision_layer = 4
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_nhq3i")
 anim = NodePath("Arms/AnimationPlayer")
@@ -520,6 +524,8 @@ libraries = {
 }
 
 [node name="AOE" type="Node2D" parent="."]
+position = Vector2(0, -5)
+scale = Vector2(1.5, 1.5)
 
 [node name="Front" type="Sprite2D" parent="AOE"]
 visible = false
@@ -571,8 +577,14 @@ intensity = 0.25
 
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
-collision_layer = 2
+collision_layer = 4
 script = ExtResource("4_vkxmp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_yuvoe")
+
+[node name="SimpleEnemyAI" type="Node2D" parent="."]
+script = ExtResource("10_305y2")
+
+[node name="HealthManager" type="Node" parent="."]
+script = ExtResource("11_xl8a1")
