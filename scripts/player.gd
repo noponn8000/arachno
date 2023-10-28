@@ -58,11 +58,10 @@ func _physics_process(delta) -> void:
 	move_and_slide();
 
 func dash() -> void:
-	dash_direction = -global_position.direction_to(get_global_mouse_position());
-#	if input_direction:
-#		dash_direction = input_direction;
-#	else:
-#		dash_direction = Vector2.ZERO;
+	if input_direction:
+		dash_direction = input_direction.normalized();
+	else:
+		dash_direction = Vector2.ZERO;
 
 	dashing = true;
 	can_dash = false;

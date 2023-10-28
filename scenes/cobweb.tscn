@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bs4luuc127tyj"]
+
+[ext_resource type="Script" path="res://scripts/cobweb_sprite.gd" id="1_8bsuc"]
+
+[node name="Cobweb" type="Sprite2D"]
+texture_filter = 1
+script = ExtResource("1_8bsuc")

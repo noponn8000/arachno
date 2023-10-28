@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://850474ld0y61"]
+[gd_scene load_steps=6 format=3 uid="uid://bs7b4y206b1sr"]
 
-[ext_resource type="PackedScene" uid="uid://bunw8i4hkwgi7" path="res://scenes/inventory_window.tscn" id="1_2myry"]
+[ext_resource type="PackedScene" uid="uid://cp2qnrpkaatrq" path="res://scenes/inventory_window.tscn" id="1_2myry"]
+[ext_resource type="Script" path="res://scripts/inventory.gd" id="1_dm7no"]
 [ext_resource type="Texture2D" uid="uid://dia0dlr1xk5b" path="res://assets/inventory/spider.png" id="2_spq03"]
+[ext_resource type="Texture2D" uid="uid://c12is4oavpp4j" path="res://assets/inventory/notches.png" id="3_sowwc"]
+[ext_resource type="Script" path="res://scripts/inventory_notch.gd" id="5_vpu0n"]
 
 [node name="Inventory" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 46.0
+offset_top = -28.0
+offset_right = 46.0
+offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dm7no")
 
 [node name="InventoryWindow" parent="." instance=ExtResource("1_2myry")]
 layout_mode = 1
@@ -37,3 +45,119 @@ offset_right = 534.0
 offset_bottom = 264.0
 scale = Vector2(4, 4)
 texture = ExtResource("2_spq03")
+
+[node name="MainNotches" type="Node2D" parent="."]
+
+[node name="Notch1" type="Sprite2D" parent="MainNotches"]
+texture_filter = 1
+position = Vector2(664, 211)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9
+frame = 1
+script = ExtResource("5_vpu0n")
+sprite_index = 1
+
+[node name="Marker2D" type="Marker2D" parent="MainNotches/Notch1"]
+position = Vector2(-12.25, -12.5)
+
+[node name="Notch2" type="Sprite2D" parent="MainNotches"]
+texture_filter = 1
+position = Vector2(631, 211)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9
+frame = 2
+script = ExtResource("5_vpu0n")
+sprite_index = 2
+
+[node name="Marker2D" type="Marker2D" parent="MainNotches/Notch2"]
+position = Vector2(-12.5, -12.5)
+
+[node name="Notch3" type="Sprite2D" parent="MainNotches"]
+texture_filter = 1
+position = Vector2(683, 232)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9
+frame = 3
+script = ExtResource("5_vpu0n")
+sprite_index = 3
+
+[node name="Marker2D" type="Marker2D" parent="MainNotches/Notch3"]
+position = Vector2(-7.5, -12.5)
+
+[node name="Notch4" type="Sprite2D" parent="MainNotches"]
+texture_filter = 1
+position = Vector2(590, 234)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9
+frame = 4
+script = ExtResource("5_vpu0n")
+sprite_index = 4
+
+[node name="Marker2D" type="Marker2D" parent="MainNotches/Notch4"]
+position = Vector2(-12.5, -12.5)
+
+[node name="Notch5" type="Sprite2D" parent="MainNotches"]
+texture_filter = 1
+position = Vector2(705, 265)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9
+frame = 5
+script = ExtResource("5_vpu0n")
+sprite_index = 5
+
+[node name="Marker2D" type="Marker2D" parent="MainNotches/Notch5"]
+position = Vector2(-10.5, -12.5)
+
+[node name="Notch6" type="Sprite2D" parent="MainNotches"]
+texture_filter = 1
+position = Vector2(582, 264)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9
+frame = 6
+script = ExtResource("5_vpu0n")
+sprite_index = 6
+
+[node name="Marker2D" type="Marker2D" parent="MainNotches/Notch6"]
+position = Vector2(-12.5, -12.5)
+
+[node name="Notch7" type="Sprite2D" parent="MainNotches"]
+texture_filter = 1
+position = Vector2(671, 405)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9
+frame = 7
+script = ExtResource("5_vpu0n")
+sprite_index = 7
+
+[node name="Marker2D" type="Marker2D" parent="MainNotches/Notch7"]
+position = Vector2(-12.5, -8.5)
+
+[node name="Notch8" type="Sprite2D" parent="MainNotches"]
+texture_filter = 1
+position = Vector2(626, 405)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9
+frame = 8
+script = ExtResource("5_vpu0n")
+sprite_index = 8
+
+[node name="Marker2D" type="Marker2D" parent="MainNotches/Notch8"]
+position = Vector2(-12.5, -8.5)
+
+[node name="SideNotches" type="Node2D" parent="."]
+
+[node name="Notch" type="Sprite2D" parent="SideNotches"]
+visible = false
+texture_filter = 1
+position = Vector2(811, 144)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sowwc")
+hframes = 9

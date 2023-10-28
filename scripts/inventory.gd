@@ -1,40 +1,30 @@
-@tool
-class_name InventoryWindow;
+class_name Inventory;
 extends Control;
 
-@onready var top: Node2D = $Top
-@onready var middle: Node2D = $Middle
-@onready var bottom: Node2D = $Bottom
+@onready var main_notches := $MainNotches.get_children();
 
-@onready var middle_column := [$Top/BoxTop, $Middle/BoxFill, $Bottom/BoxBottom];
-@onready var right_column := [$Top/BoxTopRight, $Middle/BoxRight, $Bottom/BoxBottomRight];
+# Returns an array with the index of the closest notch to `pos`
+# and global position vector of it.
+func get_closest_notch(pos: Vector2) -> Array:
+	var current_notch: InventoryNotch = null;
+	var closest_dist := 10e9;
+	var closest_notch_index := 0;
+	var closest_notch_position := Vector2.ZERO;
 
-@export_range(64, 640, 1) var window_width: float = 64;
-@export_range(64, 640, 1) var window_height: float = 64;
+	for index in main_notches.size():
+		current_notch = main_notches[index];
+		var distsq := pos.distance_squared_to(
+			current_notch.get_node("Marker2D").global_position
+		);
 
-func _enter_tree() -> void:
-	if Engine.is_editor_hint():
-		update_dimensions();
+		if distsq < closest_dist:
+			closest_dist = distsq;
+			closest_notch_index = index;
+			closest_notch_position = current_notch.global_position;
 
-func _ready() -> void:
-	update_dimensions();
+	return [closest_notch_index, closest_notch_position];
 
-func update_dimensions() -> void:
-	# Update height
-	var middle_height: int = window_height - 32;
-	for middle_node in middle.get_children():
-		middle_node.region_rect.size.y = middle_height;
-
-	middle.position.y = middle_height / 2 + 8;
-	bottom.position.y = middle_height + 16;
-
-	# Update width
-	var middle_width: int = window_width - 32;
-	for middle_node in middle_column:
-		middle_node.region_rect.size.x = middle_width;
-		middle_node.position.x = middle_width / 2 + 16;
-
-	for right_node in right_column:
-		right_node.position.x = middle_width + 24;
-
-	size = Vector2i(window_width, window_height);
+func set_equipped_item(index: int, replace: bool, item: InventoryItem) -> void:
+	var notch = main_notches[index];
+	if not notch.occupied or replace:
+		notch.item = item;
