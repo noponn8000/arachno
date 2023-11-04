@@ -5,6 +5,8 @@ extends Sprite2D;
 @export_range (0, 9, 1) var sprite_index := 0;
 @export var item: InventoryItem;
 
+@onready var anchor_marker := $Marker2D;
+
 var occupied := false;
 
 func _ready() -> void:
@@ -22,3 +24,6 @@ func initialize() -> void:
 		occupied = true;
 	else:
 		occupied = false;
+
+func get_anchor_position() -> Vector2:
+	return anchor_marker.global_position;

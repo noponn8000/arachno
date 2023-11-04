@@ -585,6 +585,7 @@ shape = SubResource("RectangleShape2D_yuvoe")
 
 [node name="SimpleEnemyAI" type="Node2D" parent="."]
 script = ExtResource("10_305y2")
+speed = 50.0
 
 [node name="HealthManager" type="Node" parent="."]
 script = ExtResource("11_xl8a1")

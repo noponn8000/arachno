@@ -1,22 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs7b4y206b1sr"]
+[gd_scene load_steps=7 format=3 uid="uid://bs7b4y206b1sr"]
 
 [ext_resource type="PackedScene" uid="uid://cp2qnrpkaatrq" path="res://scenes/inventory_window.tscn" id="1_2myry"]
 [ext_resource type="Script" path="res://scripts/inventory.gd" id="1_dm7no"]
 [ext_resource type="Texture2D" uid="uid://dia0dlr1xk5b" path="res://assets/inventory/spider.png" id="2_spq03"]
 [ext_resource type="Texture2D" uid="uid://c12is4oavpp4j" path="res://assets/inventory/notches.png" id="3_sowwc"]
 [ext_resource type="Script" path="res://scripts/inventory_notch.gd" id="5_vpu0n"]
+[ext_resource type="PackedScene" uid="uid://dbnmausavd26l" path="res://scenes/gem.tscn" id="6_0swf1"]
 
-[node name="Inventory" type="Control"]
+[node name="Inventory" type="Control" groups=["inventory"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 46.0
-offset_top = -28.0
-offset_right = 46.0
-offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_dm7no")
 
 [node name="InventoryWindow" parent="." instance=ExtResource("1_2myry")]
@@ -33,6 +31,7 @@ offset_bottom = -136.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
+mouse_filter = 2
 window_width = 196.0
 window_height = 128.0
 
@@ -44,6 +43,7 @@ offset_top = 200.0
 offset_right = 534.0
 offset_bottom = 264.0
 scale = Vector2(4, 4)
+mouse_filter = 2
 texture = ExtResource("2_spq03")
 
 [node name="MainNotches" type="Node2D" parent="."]
@@ -161,3 +161,7 @@ position = Vector2(811, 144)
 scale = Vector2(4, 4)
 texture = ExtResource("3_sowwc")
 hframes = 9
+
+[node name="Gem" parent="." instance=ExtResource("6_0swf1")]
+position = Vector2(260, 140)
+scale = Vector2(4, 4)

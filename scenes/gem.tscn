@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbnmausavd26l"]
+
+[ext_resource type="PackedScene" uid="uid://8s2b5anng7ks" path="res://scenes/inventory_item.tscn" id="1_8iwuv"]
+[ext_resource type="Texture2D" uid="uid://btaj7q4o1id2x" path="res://assets/inventory/gem.png" id="2_yabrf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rogye"]
+size = Vector2(6, 6)
+
+[node name="Gem" instance=ExtResource("1_8iwuv")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_yabrf")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_rogye")
