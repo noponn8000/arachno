@@ -1,3 +1,4 @@
+class_name Player;
 extends CharacterBody2D
 
 enum STATE {WALKING, IDLE, ATTACKING, DASHING, WINDUP};
@@ -11,8 +12,9 @@ enum STATE {WALKING, IDLE, ATTACKING, DASHING, WINDUP};
 @onready var health_manager := $HealthManager;
 @onready var projectile_marker := $Pivot/ProjectileMarker;
 @onready var projectile_sprite := $Pivot/Legs/ProjectileSprite;
-@onready var fang_sprite_l: AnimatedSprite2D = $Pivot/FangSpriteL
-@onready var fang_sprite_r: AnimatedSprite2D = $Pivot/FangSpriteR
+@onready var fang_anim := $Pivot/Fangs/AnimationPlayer;
+@onready var fang_sprite_l := $Pivot/Fangs/FangSpriteL
+@onready var fang_sprite_r := $Pivot/Fangs/FangSpriteR
 
 @export var movement_speed := 100.0;
 @export var rotation_speed := 0.5; # Rotation speed between 0.0 and 1.0
@@ -23,12 +25,13 @@ enum STATE {WALKING, IDLE, ATTACKING, DASHING, WINDUP};
 @export var dash_duration := 0.25;
 @export var projectile_cooldown := 0.5;
 @export var projectile_windup_duration := 1.0;
-@export var heavy_attack_max_windup := 1.5;
+@export var heavy_attack_max_windup := 2.0;
 
 var state: STATE;
 var input_direction := Vector2.ZERO;
 var can_attack := true;
 var can_shoot := true;
+var concealed := false;
 var impulse := Vector2.ZERO;
 
 # Dash
@@ -45,12 +48,15 @@ var heavy_attack_windup_timer := 0.0;
 enum AttackType { LIGHT, HEAVY };
 
 func _ready() -> void:
-	toggle_fang_sprites(false);
 	attack_anim.connect("animation_finished", attack_cooldown_finished);
 	sprite_anim.play("newmove");
 	attack_anim.play("RESET");
+	fang_anim.play("RESET");
+	update_fang_sprites();
 
 	hurtbox.connect("damage_taken", on_damage_taken);
+
+	Global.player = self;
 
 func _physics_process(delta) -> void:
 	input_direction = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"));
@@ -64,17 +70,21 @@ func _physics_process(delta) -> void:
 	if Input.is_action_pressed("attack1"):
 		attack(AttackType.LIGHT);
 	elif Input.is_action_pressed("attack2"):
+		fang_anim.play("fang_turn");
 		heavy_attack_windup_timer += delta;
-		toggle_fang_sprites(true);
-		if heavy_attack_windup_timer > heavy_attack_max_windup:
+
+		if heavy_attack_windup_timer >= heavy_attack_max_windup:
 			attack(AttackType.HEAVY);
+
+		update_fang_sprites();
 	elif Input.is_action_just_released("attack2"):
-		if heavy_attack_windup_timer > 0.5:
+		if heavy_attack_windup_timer > 0.0:
 			attack(AttackType.HEAVY);
 		else:
-			toggle_fang_sprites(false);
 			heavy_attack_windup_timer = 0.0;
-	elif Input.is_action_pressed("shoot"):
+			fang_anim.play("RESET");
+
+	if Input.is_action_pressed("shoot"):
 		shoot_projectile();
 
 	if Input.is_action_pressed("dash") and can_dash:
@@ -109,7 +119,7 @@ func dash() -> void:
 
 func shoot_projectile() -> void:
 	if can_shoot:
-		projectile_manager.shoot();
+		projectile_manager.shoot(clamp(projectile_windup_timer, 0.5, 1.0));
 
 		get_tree().create_timer(projectile_cooldown).connect("timeout", projectile_cooldown_finished);
 
@@ -138,22 +148,29 @@ func animate_sprite() -> void:
 func projectile_windup(delta: float) -> void:
 	if Input.is_action_pressed("shoot"):
 		state = STATE.WINDUP;
-		projectile_sprite.scale += Vector2.ONE * delta;
+		projectile_sprite.scale = Vector2(
+			min(projectile_sprite.scale.x + delta, 1.0),
+			min(projectile_sprite.scale.y + delta, 1.0)
+		);
 		projectile_windup_timer += delta;
 		projectile_manager.visible = true;
-
-		if projectile_windup_timer > projectile_windup_duration:
+	elif Input.is_action_just_released("shoot"):
+		if projectile_windup_timer > 0.0:
 			shoot_projectile();
 			projectile_windup_timer = 0.0;
 			projectile_sprite.scale = Vector2.ZERO;
 			state = STATE.IDLE;
 			projectile_manager.visible = false;
 			return;
+		else:
+			state = STATE.IDLE;
+			projectile_sprite.scale = Vector2.ZERO;
+			projectile_manager.visible = false;
+			projectile_windup_timer = 0.0;
 	else:
-		state = STATE.IDLE;
 		projectile_sprite.scale = Vector2.ZERO;
 		projectile_manager.visible = false;
-		projectile_windup_timer = 0.0;
+		state = STATE.IDLE;
 
 func attack(type: AttackType) -> void:
 	if not can_attack:
@@ -165,10 +182,10 @@ func attack(type: AttackType) -> void:
 		attack_anim.speed_scale = 2.0;
 		attack_anim.play("fast_bite");
 	elif type == AttackType.HEAVY:
-		toggle_fang_sprites(false);
-		attack_anim.speed_scale = heavy_attack_windup_timer;
-		$Pivot/BiteSprite.scale = Vector2.ONE * heavy_attack_windup_timer;
+		attack_anim.speed_scale = clamp(2 * heavy_attack_windup_timer, 1.0, 2.0);
+		$Pivot/BiteSprite.scale = Vector2.ONE * clamp(2 * heavy_attack_windup_timer, 1.0, 2.0);
 		attack_anim.play("heavy_bite");
+		fang_anim.play("fang_jab");
 		apply_impulse(
 			global_position.direction_to(get_global_mouse_position()),
 			150.0,
@@ -176,20 +193,26 @@ func attack(type: AttackType) -> void:
 		);
 
 		heavy_attack_windup_timer = 0.0;
+		update_fang_sprites();
 
 	await attack_anim.animation_finished;
 	$Pivot/BiteSprite.scale = Vector2.ONE;
 	state = STATE.IDLE;
 
-func toggle_fang_sprites(enable: bool) -> void:
-	if enable:
-		fang_sprite_l.play();
-		fang_sprite_r.play();
+func update_fang_sprites() -> void:
+	if fang_anim.current_animation != "fang_turn":
+		fang_anim.play("RESET");
+	fang_sprite_l.modulate = Color.WHITE;
+	fang_sprite_r.modulate = Color.WHITE;
+	if heavy_attack_windup_timer == 0:
+		fang_sprite_l.frame = 0;
+		fang_sprite_r.frame = 0;
+	elif heavy_attack_windup_timer < heavy_attack_max_windup:
+		fang_sprite_l.frame = heavy_attack_windup_timer / heavy_attack_max_windup * 4;
+		fang_sprite_r.frame = heavy_attack_windup_timer / heavy_attack_max_windup * 4;
 	else:
-		fang_sprite_l.stop();
-		fang_sprite_r.stop();
-	fang_sprite_l.visible = enable;
-	fang_sprite_r.visible = enable;
+		fang_sprite_l.modulate = Color.WHITE * abs(sin(5 * heavy_attack_windup_timer)) * 2;
+		fang_sprite_r.modulate = Color.WHITE * abs(sin(5 * heavy_attack_windup_timer)) * 2;
 
 func apply_impulse(direction: Vector2, magnitude: float, duration: float) -> void:
 	impulse = direction * magnitude;

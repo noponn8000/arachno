@@ -15,6 +15,8 @@ var selected := false;
 var equipped := false;
 var is_preview := false;
 
+signal equip (InventoryItem, bool);
+
 func _ready() -> void:
 	input_pickable = true;
 	origin_position = global_position;
@@ -26,12 +28,16 @@ func _process(delta: float) -> void:
 		return;
 
 	if selected:
+		if equipped:
+			emit_signal("equip", self, false);
+			equipped = false;
+
 		show_preview();
 		global_position = get_global_mouse_position();
 	else:
 		if find_snap_position():
 			global_position = global_position.move_toward(snap_position, snap_speed);
-			if !equipped:
+			if not equipped:
 				equipped = inventory.set_equipped_item(snap_index, false, self);
 		else:
 			global_position = origin_position;

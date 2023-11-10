@@ -56,8 +56,10 @@ texture_filter = 1
 texture = ExtResource("3_1m8kg")
 
 [node name="Hitbox" type="Area2D" parent="."]
+z_index = 1
 collision_layer = 8
 collision_mask = 4
+monitoring = false
 script = ExtResource("1_wrabv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

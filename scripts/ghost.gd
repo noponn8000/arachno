@@ -3,8 +3,9 @@ extends CharacterBody2D
 enum STATE { IDLE, CHASE, ATTACK, DAMAGE }
 
 @onready var hurtbox := $Hurtbox;
-@onready var ai := $SimpleEnemyAI;
+@onready var ai := $AI;
 @onready var health := $HealthManager;
+@onready var dmg_numbers := $DamageNumberComponent;
 
 @export var anim: AnimationPlayer;
 
@@ -32,6 +33,8 @@ func on_damage_taken(hitbox: Hitbox) -> void:
 	anim.play("take_damage");
 	state = STATE.DAMAGE;
 
+	dmg_numbers.spawn_number(hitbox.damage);
+
 	health.change_health(-hitbox.damage);
 
 	velocity = hitbox.global_position.direction_to(self.global_position) * hitbox.knockback;
@@ -42,7 +45,7 @@ func on_damage_taken(hitbox: Hitbox) -> void:
 
 func attack() -> void:
 	if anim.current_animation == "attack":
-		await anim.animation_finished;
+		return;
 
 	state = STATE.ATTACK;
 	anim.play("attack");

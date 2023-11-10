@@ -1,16 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://bqd3u7ckn1gnb"]
+[gd_scene load_steps=21 format=3 uid="uid://bqd3u7ckn1gnb"]
 
 [ext_resource type="Texture2D" uid="uid://bveevdexnw4lh" path="res://assets/grass.png" id="1_3chc3"]
 [ext_resource type="Texture2D" uid="uid://cn2ltqx2qnao8" path="res://assets/tilemap-5.png" id="1_h734t"]
 [ext_resource type="Texture2D" uid="uid://pykl35irtwy1" path="res://assets/tilemap-6.png" id="2_81b87"]
 [ext_resource type="PackedScene" uid="uid://ctxu6dvrtq682" path="res://scenes/ghost.tscn" id="3_j35ad"]
-[ext_resource type="PackedScene" uid="uid://deiabavpj1ikr" path="res://scenes/player-new.tscn" id="4_hdmwp"]
+[ext_resource type="PackedScene" uid="uid://bblhe7a2sh4bm" path="res://scenes/player-new.tscn" id="4_hdmwp"]
 [ext_resource type="PackedScene" uid="uid://c7wt2u7xw3yrg" path="res://scenes/torch.tscn" id="4_re7rx"]
 [ext_resource type="PackedScene" uid="uid://b38y3at01uha7" path="res://scenes/ghost-scythe.tscn" id="5_x8qsu"]
 [ext_resource type="PackedScene" uid="uid://c8wltlgaqnrkl" path="res://scenes/log.tscn" id="6_m323e"]
 [ext_resource type="PackedScene" uid="uid://ddwa05xl5f2ip" path="res://scenes/boundary_generator.tscn" id="6_mdjpx"]
 [ext_resource type="PackedScene" path="res://scenes/tree.tscn" id="8_mfi27"]
 [ext_resource type="PackedScene" uid="uid://c1obbhipkyr3n" path="res://scenes/candle.tscn" id="9_xlxfe"]
+[ext_resource type="PackedScene" uid="uid://gj1itosfkbj5" path="res://scenes/bush.tscn" id="10_cm6iy"]
+[ext_resource type="PackedScene" uid="uid://b4shig6jl31ho" path="res://scenes/ghost_pathfinding.tscn" id="12_c06mn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_135q8"]
 texture = ExtResource("1_3chc3")
@@ -287,6 +289,11 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/1 = SubResource("TileSetAtlasSource_ltnn4")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_yvvb5"]
+vertices = PackedVector2Array(74, 2, 179, -77, 181, 59, 62, 54, -86, -87, 46, -83, 1, 5, -134, -80, -135, 60, 14, 55, 15, -161, -60, -162)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 1, 0, 6, 7), PackedInt32Array(3, 2, 8, 9), PackedInt32Array(6, 9, 8, 7), PackedInt32Array(10, 5, 4, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-135, 60, 181, 59, 179, -77, 46, -83, 15, -161, -60, -162, -86, -87, -134, -80), PackedVector2Array(1, 5, 14, 55, 62, 54, 74, 2)])
+
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
@@ -317,7 +324,7 @@ layer_0/tile_data = PackedInt32Array(917483, 196609, 0, 917484, 327681, 5, 91748
 color = Color(0.25098, 0.25098, 0.25098, 1)
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("4_hdmwp")]
-position = Vector2(-38, -44)
+position = Vector2(-17, -77)
 
 [node name="Trees" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -366,11 +373,22 @@ y_sort_enabled = true
 [node name="Log" parent="Debris" instance=ExtResource("6_m323e")]
 position = Vector2(37, 34)
 
+[node name="Bush" parent="Debris" instance=ExtResource("10_cm6iy")]
+position = Vector2(-57, 8)
+
 [node name="Enemies" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Ghost" parent="Enemies" instance=ExtResource("3_j35ad")]
-position = Vector2(132, 49)
+position = Vector2(89, -64)
 
 [node name="Ghost2" parent="Enemies" instance=ExtResource("5_x8qsu")]
-position = Vector2(101, -3)
+position = Vector2(82, -21)
+
+[node name="Ghost3" parent="Enemies" instance=ExtResource("12_c06mn")]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+navigation_polygon = SubResource("NavigationPolygon_yvvb5")
+enter_cost = 1.0

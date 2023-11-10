@@ -28,9 +28,9 @@ size_flags_vertical = 0
 [node name="Inventory" parent="." instance=ExtResource("2_mby67")]
 process_mode = 2
 anchors_preset = -1
-offset_left = 283.0
-offset_top = 165.0
-offset_right = 283.0
-offset_bottom = 165.0
+offset_left = 856.0
+offset_top = 460.0
+offset_right = 856.0
+offset_bottom = 460.0
 size_flags_horizontal = 4
 metadata/_edit_use_anchors_ = true

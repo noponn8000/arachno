@@ -24,10 +24,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -376.0
-offset_top = -264.0
-offset_right = -180.0
-offset_bottom = -136.0
+offset_left = -976.0
+offset_top = -556.0
+offset_right = -780.0
+offset_bottom = -428.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(4, 4)
@@ -38,15 +38,16 @@ window_height = 128.0
 [node name="Spider" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 470.0
-offset_top = 200.0
-offset_right = 534.0
-offset_bottom = 264.0
+offset_left = -130.0
+offset_top = -92.0
+offset_right = -66.0
+offset_bottom = -28.0
 scale = Vector2(4, 4)
 mouse_filter = 2
 texture = ExtResource("2_spq03")
 
 [node name="MainNotches" type="Node2D" parent="."]
+position = Vector2(-600, -292)
 
 [node name="Notch1" type="Sprite2D" parent="MainNotches"]
 texture_filter = 1
@@ -153,15 +154,15 @@ sprite_index = 8
 position = Vector2(-12.5, -8.5)
 
 [node name="SideNotches" type="Node2D" parent="."]
+position = Vector2(210, -148)
 
-[node name="Notch" type="Sprite2D" parent="SideNotches"]
-visible = false
-texture_filter = 1
-position = Vector2(811, 144)
-scale = Vector2(4, 4)
-texture = ExtResource("3_sowwc")
-hframes = 9
+[node name="Items" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -600.0
+offset_top = -292.0
+offset_right = -560.0
+offset_bottom = -252.0
 
-[node name="Gem" parent="." instance=ExtResource("6_0swf1")]
+[node name="Gem" parent="Items" instance=ExtResource("6_0swf1")]
 position = Vector2(260, 140)
 scale = Vector2(4, 4)

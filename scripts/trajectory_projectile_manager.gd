@@ -8,11 +8,12 @@ extends Node2D
 
 var can_shoot := true;
 
-func shoot() -> void:
+func shoot(projectile_scale: float = 1.0) -> void:
 	if not can_shoot:
 		return;
 
 	var projectile := projectile_scene.instantiate();
+	projectile.scale = Vector2.ONE * projectile_scale;
 
 	# Copy the Path2D so that the projectile's trajectory doesn't change when the preview moves.
 	var trajectory_copy := Path2D.new();

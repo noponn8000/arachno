@@ -40,6 +40,7 @@ color = Color(1, 0.703333, 0.11, 1)
 texture = ExtResource("2_jjvqf")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_mode = 1
 y_sort_enabled = true
 position = Vector2(0, -4)
 amount = 16

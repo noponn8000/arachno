@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Shape" load_steps=14 format=3 uid="uid://bx8uhywaucj4g"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="1_d81y3"]
+[ext_resource type="Texture2D" uid="uid://bda7cbq7mpcnw" path="res://assets/ss2D/1.png" id="2_03kir"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="3_sfp37"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="4_duf4e"]
+[ext_resource type="Texture2D" uid="uid://cr3l5t76pd2yl" path="res://assets/ss2D/5.png" id="5_14omm"]
+[ext_resource type="Texture2D" uid="uid://bryijo5t2pene" path="res://assets/ss2D/fill.png" id="5_d5som"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="6_krjfp"]
+
+[sub_resource type="Resource" id="Resource_bkarq"]
+script = ExtResource("1_d81y3")
+textures = Array[Texture2D]([ExtResource("2_03kir")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = true
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_6o6an"]
+script = ExtResource("3_sfp37")
+begin = 0.0
+distance = 180.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_q22wh"]
+script = ExtResource("4_duf4e")
+edge_material = SubResource("Resource_bkarq")
+normal_range = SubResource("Resource_6o6an")
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = 0.0
+
+[sub_resource type="Resource" id="Resource_0dg8j"]
+script = ExtResource("1_d81y3")
+textures = Array[Texture2D]([ExtResource("5_14omm")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = true
+use_taper_texture = true
+fit_mode = 1
+
+[sub_resource type="Resource" id="Resource_4unhi"]
+script = ExtResource("3_sfp37")
+begin = 180.0
+distance = 180.0
+edgeRendering = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_f0rti"]
+script = ExtResource("4_duf4e")
+edge_material = SubResource("Resource_0dg8j")
+normal_range = SubResource("Resource_4unhi")
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = 0.0
+
+[resource]
+script = ExtResource("6_krjfp")
+_edge_meta_materials = Array[ExtResource("4_duf4e")]([SubResource("Resource_q22wh"), SubResource("Resource_f0rti")])
+fill_textures = Array[Texture2D]([ExtResource("5_d5som")])
+fill_texture_z_index = -10
+fill_texture_show_behind_parent = false
+fill_mesh_offset = 0.0
+render_offset = 0.0

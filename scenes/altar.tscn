@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cssk08bxlg2dk"]
+
+[ext_resource type="Texture2D" uid="uid://dujw7en0q0xng" path="res://assets/altar/altar.png" id="1_uctgc"]
+[ext_resource type="Script" path="res://scenes/altar.gd" id="1_up0ts"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmoa2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gexse"]
+radius = 33.0
+
+[node name="Altar" type="StaticBody2D"]
+script = ExtResource("1_up0ts")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_uctgc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bmoa2")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_gexse")
