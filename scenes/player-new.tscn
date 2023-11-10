@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bblhe7a2sh4bm"]
+[gd_scene load_steps=32 format=3 uid="uid://bblhe7a2sh4bm"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ba28i"]
 [ext_resource type="Texture2D" uid="uid://c6eyrhawyuywt" path="res://assets/ik-spider-body.png" id="2_3s4wm"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ctecogcnhbvjc" path="res://assets/ik-spider-leg.png" id="5_sex84"]
 [ext_resource type="Script" path="res://scripts/Hurtbox.gd" id="6_0n6ou"]
 [ext_resource type="Script" path="res://scripts/Hitbox.gd" id="6_xdcdq"]
+[ext_resource type="Texture2D" uid="uid://bdf0y62t7708u" path="res://assets/dash/dash.png" id="7_hxp05"]
 [ext_resource type="Script" path="res://scripts/health_manager.gd" id="9_1uaqe"]
 [ext_resource type="PackedScene" uid="uid://dwmygjr5xb68r" path="res://scenes/hud.tscn" id="9_7dojw"]
 [ext_resource type="Texture2D" uid="uid://bvlhfmbfo1cpl" path="res://assets/spiderfangs.png" id="9_gvm1t"]
@@ -1371,6 +1372,13 @@ texture_filter = 1
 position = Vector2(0, -1)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_3s4wm")
+
+[node name="DashSprite" type="Sprite2D" parent="Pivot"]
+visible = false
+texture_filter = 1
+position = Vector2(0, 2)
+scale = Vector2(1, 0.694)
+texture = ExtResource("7_hxp05")
 
 [node name="BiteSprite" type="Sprite2D" parent="Pivot"]
 visible = false

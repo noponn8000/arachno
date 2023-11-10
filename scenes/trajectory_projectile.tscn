@@ -2,11 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/trajectory_projectile.gd" id="1_3im7p"]
 [ext_resource type="Script" path="res://scripts/Hitbox.gd" id="1_wrabv"]
-[ext_resource type="Texture2D" uid="uid://b7n4tdmkhshtf" path="res://assets/webprojectile.png" id="3_1m8kg"]
-[ext_resource type="Texture2D" uid="uid://b7esdttca8es4" path="res://assets/web_aoe/aoe.png" id="4_n5exs"]
+[ext_resource type="Texture2D" uid="uid://b1x32e2w86sep" path="res://assets/web_aoe/ball.png" id="3_yjou8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aqym6"]
-radius = 6.0
+radius = 8.0
 
 [sub_resource type="Animation" id="Animation_l7i0l"]
 resource_name = "explode"
@@ -30,13 +29,17 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(0.0441942, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_rrjqh"]
+length = 0.001
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8pcor"]
 _data = {
+"RESET": SubResource("Animation_rrjqh"),
 "explode": SubResource("Animation_l7i0l")
 }
 
@@ -46,20 +49,15 @@ loop = false
 script = ExtResource("1_3im7p")
 speed = 150
 
-[node name="AOE" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("4_n5exs")
-hframes = 4
-
 [node name="Projectile" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("3_1m8kg")
+texture = ExtResource("3_yjou8")
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 z_index = 1
 collision_layer = 8
 collision_mask = 4
-monitoring = false
 script = ExtResource("1_wrabv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

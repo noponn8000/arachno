@@ -495,7 +495,7 @@ hue_variation_max = 1.0
 
 [node name="Ghost" type="CharacterBody2D" node_paths=PackedStringArray("anim")]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_nhq3i")
 anim = NodePath("Arms/AnimationPlayer")
@@ -600,3 +600,5 @@ attack_radius = 20.0
 speed = 50.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="AI"]
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]

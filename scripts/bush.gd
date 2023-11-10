@@ -11,6 +11,7 @@ var shake_amplitude := 0.0;
 var shake_speed := 0.0;
 var shake_offset := 0.0;
 var shake_damping := 0.0;
+var shake_timer := 0.0;
 var shaking := false;
 
 func _ready() -> void:
@@ -38,7 +39,8 @@ func _physics_process(delta: float) -> void:
 		shake_speed = -shake_speed;
 
 	leaves.material.set_shader_parameter("deformation", shake_offset);
-	shake_speed *= 1.0 - (shake_damping * delta);
+	shake_speed *= pow(shake_damping, 1.0 + shake_timer);
+	shake_timer += delta;
 	#shake_amplitude *= 1.0 - (shake_damping * delta)
 
 func animate_shake(speed: float, amplitude: float, damping: float) -> void:
@@ -48,21 +50,20 @@ func animate_shake(speed: float, amplitude: float, damping: float) -> void:
 	shake_amplitude = amplitude;
 	shake_speed = speed;
 	shake_damping = damping;
+	shake_timer = 0.0;
 
 	shaking = true;
 
 func on_body_entered(body: Node2D) -> void:
-	animate_shake(30.0, 1.0, 0.9);
+	animate_shake(30.0, 1.3, 0.95);
 
 	if body is Player:
 		Global.player.concealed = true;
 
 func on_area_entered(other: Area2D) -> void:
 	if other is Hitbox and other.monitoring:
-		animate_shake(15.0, 1.0, 0.9);
+		animate_shake(30.0, 1.3, 0.95);
 
 func on_body_exited(body: Node2D) -> void:
-	animate_shake(30.0, 1.0, 0.9);
-
 	if body is Player:
 		Global.player.concealed = false;

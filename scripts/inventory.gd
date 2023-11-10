@@ -3,6 +3,7 @@ extends Control;
 
 @onready var main_notches := $MainNotches.get_children();
 @onready var side_notches := [];
+@onready var item_node := $Items;
 
 @export var side_notch_count := 16;
 
@@ -134,6 +135,9 @@ func add_inventory_item(item: InventoryItem) -> bool:
 			notch.occupied = true;
 			item.equipped = true;
 			item.global_position = notch.get_anchor_position();
+
+			item_node.add_child(item);
+			item.visible = true;
 
 			return true;
 
