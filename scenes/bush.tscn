@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b3eupf6ixte1n" path="res://assets/bush/bush_particle.png" id="5_nyrqw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xgy76"]
+resource_local_to_scene = true
 shader = ExtResource("2_knglf")
 shader_parameter/deformation = 0.0
 

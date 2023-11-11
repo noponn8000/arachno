@@ -7,11 +7,12 @@
 
 [sub_resource type="Resource" id="Resource_hmv7f"]
 script = ExtResource("4_ddl5q")
-base_damage = 10
+base_damage = 16
 crit_multiplier = 1.5
-crit_chance = 0.15
+crit_chance = 0.2
 spread = 0.2
 knockback = 20.0
+base_stun_time = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aqym6"]
 radius = 8.0

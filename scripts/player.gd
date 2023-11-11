@@ -16,6 +16,7 @@ enum STATE {WALKING, IDLE, ATTACKING, DASHING, WINDUP};
 @onready var fang_sprite_l := $Pivot/Fangs/FangSpriteL
 @onready var fang_sprite_r := $Pivot/Fangs/FangSpriteR
 @onready var dash_sprite := $Pivot/DashSprite;
+@onready var hitbox = $Pivot/BiteSprite/BiteArea2D;
 
 @export var movement_speed := 100.0;
 @export var rotation_speed := 0.5; # Rotation speed between 0.0 and 1.0
@@ -187,9 +188,11 @@ func attack(type: AttackType) -> void:
 	can_attack = false;
 	if type == AttackType.LIGHT:
 		attack_anim.speed_scale = 2.0;
+		hitbox.scaling = 1.0;
 		attack_anim.play("fast_bite");
 	elif type == AttackType.HEAVY:
 		attack_anim.speed_scale = clamp(2 * heavy_attack_windup_timer, 1.0, 2.0);
+		hitbox.scaling = clamp(heavy_attack_windup_timer, 0.5, 2.0);
 		$Pivot/BiteSprite.scale = Vector2.ONE * clamp(2 * heavy_attack_windup_timer, 1.0, 2.0);
 		attack_anim.play("heavy_bite");
 		fang_anim.play("fang_jab");

@@ -1,5 +1,7 @@
 extends Shakable
 
+var type := 0;
+
 func _ready() -> void:
 	sprite = $Sprite2D;
 	particles = $GPUParticles2D;

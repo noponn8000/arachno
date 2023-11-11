@@ -43,7 +43,12 @@ func on_damage_taken(hitbox: Hitbox) -> void:
 
 	apply_impulse(hit_data.origin.direction_to(self.global_position), hit_data.knockback, 0.2);
 
+	# Scale the hurt animation with the stun time of the hit
+	anim.speed_scale = 1.0 / hit_data.stun_time;
+	# Wait until the animation is over and return to idle statie
+	# Also reset the anim's speed scale to the normal value
 	await anim.animation_finished;
+	anim.speed_scale = 1.0
 	state = STATE.IDLE;
 	anim.play("idle");
 

@@ -6,3 +6,4 @@ extends Resource
 @export_range(0, 1, 0.05) var crit_chance: float;
 @export_range(0, 1, 0.05) var spread: float;
 @export var knockback: float;
+@export var base_stun_time: float;

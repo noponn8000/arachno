@@ -9,12 +9,14 @@ extends PathFollow2D
 
 @onready var anim := $AnimationPlayer;
 @onready var sprite := $Projectile;
+@onready var hitbox: Area2D = $Hitbox
 
 var firing := false;
 
 signal hit;
 
 func fire() -> void:
+	hitbox.set_scaling(scale.x);
 	visible = true;
 	firing = true;
 

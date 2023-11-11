@@ -18,12 +18,18 @@ func get_hit_data() -> HitDataResource:
 			(attrs.base_damage * attrs.crit_multiplier) * (1.0 + attrs.spread) * scaling,
 			true,
 			attrs.knockback,
-			owner.global_position
+			owner.global_position,
+			attrs.base_stun_time * scaling * attrs.crit_multiplier
 		);
 	else:
 		return HitDataResource.new(
 			attrs.base_damage * (1.0 + attrs.spread) * scaling,
 			false,
 			attrs.knockback,
-			owner.global_position
+			owner.global_position,
+			attrs.base_stun_time * scaling
 			);
+
+func set_scaling(new_scaling: float) -> void:
+	print(self);
+	scaling = max(0.0, new_scaling);

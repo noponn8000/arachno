@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bblhe7a2sh4bm"]
+[gd_scene load_steps=45 format=3 uid="uid://bblhe7a2sh4bm"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ba28i"]
 [ext_resource type="Texture2D" uid="uid://c6eyrhawyuywt" path="res://assets/ik-spider-body.png" id="2_3s4wm"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bvlhfmbfo1cpl" path="res://assets/spiderfangs.png" id="9_gvm1t"]
 [ext_resource type="Script" path="res://hitbox_attributes_resource.gd" id="11_wc1us"]
 [ext_resource type="PackedScene" uid="uid://cn7x6iqemeggg" path="res://scenes/trajectory_projectile_manager.tscn" id="11_wn4vn"]
+[ext_resource type="Texture2D" uid="uid://lpln02cn822c" path="res://assets/dash/dash_particles.png" id="12_cd6a3"]
 
 [sub_resource type="Animation" id="Animation_b7x01"]
 resource_name = "RESET"
@@ -1129,18 +1130,35 @@ crit_multiplier = 1.5
 crit_chance = 0.2
 spread = 0.1
 knockback = 30.0
+base_stun_time = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40mqo"]
 size = Vector2(15, 4)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rrkow"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 5
+particles_anim_loop = false
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1bwb"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 2.0
+emission_ring_inner_radius = 0.0
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
-spread = 0.0
 initial_velocity_min = 10.0
 initial_velocity_max = 10.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 2.0
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5pavh"]
 
@@ -1296,11 +1314,14 @@ position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_40mqo")
 
 [node name="DashParticles" type="GPUParticles2D" parent="Pivot"]
-modulate = Color(0.823529, 0, 0, 0.466667)
 texture_filter = 1
+material = SubResource("CanvasItemMaterial_rrkow")
+position = Vector2(0, -8)
 emitting = false
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_m1bwb")
-texture = ExtResource("2_3s4wm")
+texture = ExtResource("12_cd6a3")
+one_shot = true
 explosiveness = 0.5
 
 [node name="ProjectileMarker" type="Marker2D" parent="Pivot"]

@@ -477,6 +477,7 @@ crit_multiplier = 1.2
 crit_chance = 0.1
 spread = 0.1
 knockback = 0.0
+base_stun_time = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0b05y"]
 radius = 11.0
