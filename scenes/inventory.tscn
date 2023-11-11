@@ -8,45 +8,36 @@
 
 [node name="Inventory" type="Control" groups=["inventory"]]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_dm7no")
 
 [node name="InventoryWindow" parent="." instance=ExtResource("1_2myry")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -976.0
-offset_top = -556.0
-offset_right = -780.0
-offset_bottom = -428.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_left = -396.0
+offset_top = -247.0
+offset_right = -200.0
+offset_bottom = -119.0
 scale = Vector2(4, 4)
 mouse_filter = 2
 window_width = 196.0
 window_height = 128.0
 
-[node name="Spider" type="TextureRect" parent="."]
+[node name="Spider" type="Sprite2D" parent="."]
 texture_filter = 1
-layout_mode = 0
-offset_left = -130.0
-offset_top = -92.0
-offset_right = -66.0
-offset_bottom = -28.0
+position = Vector2(1, 23)
 scale = Vector2(4, 4)
-mouse_filter = 2
 texture = ExtResource("2_spq03")
+metadata/_edit_use_anchors_ = true
 
 [node name="MainNotches" type="Node2D" parent="."]
-position = Vector2(-600, -292)
+position = Vector2(-599, -302)
 
 [node name="Notch1" type="Sprite2D" parent="MainNotches"]
 texture_filter = 1
@@ -153,11 +144,12 @@ sprite_index = 8
 position = Vector2(-12.5, -8.5)
 
 [node name="SideNotches" type="Node2D" parent="."]
-position = Vector2(-332, -176)
+position = Vector2(-331, -186)
 
 [node name="Items" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -600.0
-offset_top = -292.0
-offset_right = -560.0
-offset_bottom = -252.0
+offset_left = -996.0
+offset_top = -539.0
+offset_right = -956.0
+offset_bottom = -499.0
+scale = Vector2(4, 4)

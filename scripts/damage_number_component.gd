@@ -12,7 +12,7 @@ extends Node2D;
 @export var range_max := 40.0;
 @export var direction := Vector2.UP;
 
-func spawn_number(damage: int) -> void:
+func spawn_number(damage: int, critical: bool = false) -> void:
 	var angle = randf_range(deg_to_rad(spread_min), deg_to_rad(spread_max));
 	var magnitude = randf_range(range_min, range_max);
 	var end_position = global_position + (direction * magnitude).rotated(angle);
@@ -23,5 +23,8 @@ func spawn_number(damage: int) -> void:
 	number.end_position = end_position;
 	number.lifetime = randf_range(lifetime_min, lifetime_max);
 	number.damage = damage;
+
+	if critical:
+		number.modulate = Color.RED;
 
 	get_tree().root.add_child(number);

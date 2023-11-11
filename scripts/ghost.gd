@@ -10,6 +10,7 @@ enum STATE { IDLE, CHASE, ATTACK, DAMAGE }
 @export var anim: AnimationPlayer;
 
 var state := STATE.CHASE;
+var impulse := Vector2.ZERO;
 
 func _ready() -> void:
 	hurtbox.connect("damage_taken", on_damage_taken);
@@ -23,8 +24,10 @@ func _physics_process(delta: float) -> void:
 			state = STATE.CHASE;
 		else:
 			state = STATE.IDLE;
+	else:
+		velocity = impulse;
 
-		move_and_slide();
+	move_and_slide();
 
 	if ai.is_attacking() and state != STATE.DAMAGE:
 		attack();
@@ -33,11 +36,12 @@ func on_damage_taken(hitbox: Hitbox) -> void:
 	anim.play("take_damage");
 	state = STATE.DAMAGE;
 
-	dmg_numbers.spawn_number(hitbox.damage);
+	var hit_data = hitbox.get_hit_data();
+	dmg_numbers.spawn_number(hit_data.damage, hit_data.critical);
 
-	health.change_health(-hitbox.damage);
+	health.change_health(-hit_data.damage);
 
-	velocity = hitbox.global_position.direction_to(self.global_position) * hitbox.knockback;
+	apply_impulse(hit_data.origin.direction_to(self.global_position), hit_data.knockback, 0.2);
 
 	await anim.animation_finished;
 	state = STATE.IDLE;
@@ -61,3 +65,7 @@ func die() -> void:
 
 	await tween.finished;
 	queue_free();
+
+func apply_impulse(direction: Vector2, magnitude: float, duration: float) -> void:
+	impulse = direction * magnitude;
+	get_tree().create_timer(duration).connect("timeout", func(): impulse = Vector2.ZERO);

@@ -18,7 +18,7 @@ min_value = -1.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_deelq"]
+[sub_resource type="CurveTexture" id="CurveTexture_ie2lb"]
 curve = SubResource("Curve_ujfac")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fdwdc"]
@@ -35,7 +35,7 @@ angle_max = 360.0
 scale_min = 0.25
 scale_max = 0.5
 hue_variation_max = 0.1
-hue_variation_curve = SubResource("CurveTexture_deelq")
+hue_variation_curve = SubResource("CurveTexture_ie2lb")
 
 [node name="Bush" type="Node2D"]
 scale = Vector2(4, 4)

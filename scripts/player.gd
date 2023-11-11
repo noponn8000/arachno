@@ -93,10 +93,7 @@ func _physics_process(delta) -> void:
 
 	if dashing:
 		state = STATE.DASHING;
-		dash_sprite.visible = true;
 	else:
-		dash_sprite.visible = false;
-
 		if velocity != Vector2.ZERO:
 			state = STATE.WALKING;
 		else:
@@ -117,6 +114,11 @@ func dash() -> void:
 
 	dashing = true;
 	can_dash = false;
+	#dash_sprite.visible = true;
+
+	dash_sprite.frame = 0;
+	dash_sprite.play();
+	dash_sprite.global_rotation = Vector2.DOWN.angle_to(input_direction.normalized());
 
 	dash_particles.restart();
 	get_tree().create_timer(dash_duration).connect("timeout", dash_finished);
@@ -235,6 +237,7 @@ func projectile_cooldown_finished() -> void:
 func dash_finished() -> void:
 	dashing = false;
 	dash_particles.emitting = false;
+	#dash_sprite.visible = false;
 
 func on_damage_taken(hitbox: Hitbox) -> void:
-	health_manager.change_health(-hitbox.damage);
+	health_manager.change_health(-hitbox.get_hit_data().damage);

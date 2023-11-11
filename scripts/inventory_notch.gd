@@ -36,3 +36,22 @@ func initialize() -> void:
 func get_anchor_position() -> Vector2:
 	return anchor_position;
 
+func set_item(item: InventoryItem) -> void:
+	if item == self.item:
+		return;
+
+	self.item = item;
+	add_child(item);
+	occupied = true;
+	item.equipped = true;
+	item.global_position = get_anchor_position();
+	item = null;
+	occupied = false;
+
+func unset_item() -> void:
+	if item:
+		remove_child(item);
+		item.equipped = false;
+
+	item = null;
+	occupied = false;

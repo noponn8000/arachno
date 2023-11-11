@@ -19,6 +19,12 @@ config/icon="res://icon.png"
 
 Global="*res://scripts/global.gd"
 
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/size/resizable=false
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/rmsmartshape/plugin.cfg")

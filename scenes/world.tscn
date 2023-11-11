@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/tree.tscn" id="8_mfi27"]
 [ext_resource type="PackedScene" uid="uid://c1obbhipkyr3n" path="res://scenes/candle.tscn" id="9_xlxfe"]
 [ext_resource type="PackedScene" uid="uid://gj1itosfkbj5" path="res://scenes/bush.tscn" id="10_cm6iy"]
-[ext_resource type="PackedScene" uid="uid://b4shig6jl31ho" path="res://scenes/ghost_pathfinding.tscn" id="12_c06mn"]
+[ext_resource type="PackedScene" uid="uid://bbvaks0pey04c" path="res://scenes/grass.tscn" id="10_hlsit"]
 [ext_resource type="PackedScene" uid="uid://cssk08bxlg2dk" path="res://scenes/altar.tscn" id="13_pkuie"]
 [ext_resource type="PackedScene" uid="uid://dbnmausavd26l" path="res://scenes/gem.tscn" id="14_4f2jb"]
 
@@ -348,6 +348,7 @@ texture = ExtResource("1_3chc3")
 polygon = PackedVector2Array(25, 84, -149, 86, -163, 73, -174, 43, -174, -52, -151, -90, -173, -145, -106, -152, -21, -309, 63, -332, 63, -342, -53, -352, -3, -520, -8, -587, 188, -583, 377, -585, 391, -531, 389, -362, 291, -372, 241, -362, 54, -220, 48, -138, 214, -134, 220, 78, 25, 84, 24, 270, 746, 272, 708, -881, -645, -872, -600, 344, 24, 270)
 
 [node name="BoundaryGenerator" parent="Trees" instance=ExtResource("6_mdjpx")]
+visible = false
 points = PackedVector2Array(-159, -96, -159.279, -80.9422, -159.595, -63.8835, -160, -42, -157, -21, -157, 3, -156.168, 13.8148, -155, 29, -159, 56, -159.995, 71.9187, -161, 88, -159, 110, -144, 112, -128, 113, -113.453, 112.531, -97, 112, -83.7044, 112.985, -70, 114, -40, 112, -34, 112, -17, 113, 18, 114, 46, 114, 66, 108, 82, 111, 100, 115, 111, 115, 130, 107, 149, 114, 168, 112, 183, 106, 199, 111, 209, 87, 207, 51, 202, 5, 197, -25, 196, -62, 196, -87, 172, -87, 155, -88, 134, -86, 113, -86, 90, -87, 69, -89, 58, -91, 37, -98, 34, -121, 34, -144, 35.4893, -159.39, 37, -175, 51, -192, 65, -207, 84, -215, 105, -221, 119.174, -235.681, 133, -250, 146.544, -259.029, 160, -268, 173, -277, 186, -287, 196.386, -300.219, 208, -315, 217.344, -324.769, 230, -338, 252.585, -341.475, 269, -344, 289, -354, 305, -339, 325.589, -337.996, 346, -337, 361.068, -338.614, 374, -340, 375, -356, 375.613, -366.883, 377, -390, 376.521, -404.85, 376, -421, 377.357, -439.998, 379, -463, 377.551, -482.251, 378, -500, 375, -522, 366.013, -531.487, 357, -541, 343, -541, 326, -538, 310.419, -538.236, 293.386, -538.494, 277, -540, 260, -539, 240, -536, 214, -534, 199.127, -534, 181, -534, 165.531, -534.787, 148.578, -535.649, 133.685, -536.406, 122, -537, 104.543, -536.501, 87, -536, 71.445, -537.073, 58, -538, 37.45, -538, 11, -538, -4, -526, 0, -504, 5, -481, 5.93546, -462.759, 7, -442, 6.5477, -427.526, 6, -410, -12, -407, -29, -402, -28.2115, -387.019, -27, -364, -31, -343, -35, -326, -16, -324, 7.65091, -319.809, 27, -317, 47.9292, -316.477, 67, -316, 84.0023, -307.756, 100, -300, 86.8127, -293.406, 70, -285, 51.9108, -282.416, 35, -280, 16.038, -270.993, -5, -261, -23.4488, -241.055, -42, -221, -56.8858, -198.911, -73, -175, -81.0002, -145.999, -89, -117, -102.453, -101.056, -116, -85, -136, -95)
 object_scene = ExtResource("8_mfi27")
 
@@ -385,6 +386,15 @@ position = Vector2(36, 7)
 [node name="Bush" parent="Debris" instance=ExtResource("10_cm6iy")]
 position = Vector2(-57, 8)
 
+[node name="Grass" parent="Debris" instance=ExtResource("10_hlsit")]
+position = Vector2(-49, -46)
+
+[node name="Grass2" parent="Debris" instance=ExtResource("10_hlsit")]
+position = Vector2(-42, -39)
+
+[node name="Grass3" parent="Debris" instance=ExtResource("10_hlsit")]
+position = Vector2(-54, -37)
+
 [node name="Enemies" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -394,9 +404,6 @@ position = Vector2(89, -64)
 [node name="Ghost2" parent="Enemies" instance=ExtResource("5_x8qsu")]
 position = Vector2(82, -21)
 
-[node name="Ghost3" parent="Enemies" instance=ExtResource("12_c06mn")]
-position = Vector2(-25, -42)
-
 [node name="Interactables" type="Node2D" parent="."]
 
 [node name="Altar" parent="Interactables" node_paths=PackedStringArray("item") instance=ExtResource("13_pkuie")]
@@ -404,6 +411,10 @@ position = Vector2(-10, -166)
 item = NodePath("Gem")
 
 [node name="Gem" parent="Interactables/Altar" instance=ExtResource("14_4f2jb")]
+visible = false
+snap_speed = null
+snap_range = null
+id = null
 
 [node name="Miscallaneous" type="Node" parent="."]
 
@@ -411,6 +422,7 @@ item = NodePath("Gem")
 color = Color(0.25098, 0.25098, 0.25098, 1)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Miscallaneous"]
+visible = false
 position = Vector2(0, -1)
 navigation_polygon = SubResource("NavigationPolygon_yvvb5")
 enter_cost = 1.0

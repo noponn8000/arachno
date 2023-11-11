@@ -33,7 +33,6 @@ func _ready() -> void:
 		side_notch.initialize();
 
 	for item in $Items.get_children():
-		item.connect("equip", on_item_equip_changed);
 		add_inventory_item(item);
 
 	Global.player_inventory = self;
@@ -62,10 +61,15 @@ func get_closest_notch(pos: Vector2) -> Array:
 
 func set_equipped_item(index: int, replace: bool, item: InventoryItem) -> bool:
 	var notch = get_all_notches()[index];
+	# Emptying the slot
+	if item == null and replace:
+		print("Unsetting notch " + notch.name);
+		notch.unset_item();
 
 	if not notch.occupied or replace:
 		unset_preview_item();
 		notch.item = item;
+		notch.add_child(item);
 		notch.occupied = item != null;
 
 		print(get_equipped_items());
@@ -74,6 +78,12 @@ func set_equipped_item(index: int, replace: bool, item: InventoryItem) -> bool:
 		return true;
 
 	return false;
+
+func update_item_positions() -> void:
+	for notch in get_all_notches():
+		if notch.item:
+			print(notch);
+			notch.item.global_position = notch.get_anchor_position();
 
 func set_preview_item(item: InventoryItem, slot_index: int) -> void:
 	if preview_item and item.id == preview_item.id and slot_index == preview_notch_idx:
@@ -85,6 +95,7 @@ func set_preview_item(item: InventoryItem, slot_index: int) -> void:
 
 	# Duplicate the selected item and add it to the inventory node.
 	preview_item = item.duplicate();
+	preview_item.scale *= 4;
 	preview_item.is_preview = true;
 	preview_notch_idx = slot_index;
 	add_child(preview_item);
@@ -127,17 +138,16 @@ func on_item_equip_changed(item: InventoryItem, equipped: bool) -> void:
 	var item_index := get_item_index(item);
 	if not equipped and item_index != -1:
 		set_equipped_item(item_index, true, null);
+		item_node.add_child(item);
 
 func add_inventory_item(item: InventoryItem) -> bool:
 	for notch in side_notches:
 		if not notch.occupied:
-			notch.item = item;
-			notch.occupied = true;
-			item.equipped = true;
-			item.global_position = notch.get_anchor_position();
+			notch.set_item(item);
 
 			item_node.add_child(item);
 			item.visible = true;
+			item.connect("equip", on_item_equip_changed);
 
 			return true;
 
@@ -155,4 +165,7 @@ func animate(state: bool) -> void:
 		tween.tween_property(self, "scale", Vector2.ZERO, 0.5);
 
 	await tween.finished;
+	visible = state;
+	scale = Vector2.ONE;
+
 	emit_signal("animation_finished");

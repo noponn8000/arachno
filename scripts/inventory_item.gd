@@ -6,6 +6,7 @@ extends Area2D;
 @export var snap_speed := 20.0;
 @export var snap_range := 100.0;
 @export var id := 0;
+@export var attributes: ItemAttributeResource;
 
 var origin_position: Vector2;
 var snap_position: Vector2;

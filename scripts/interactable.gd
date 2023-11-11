@@ -32,6 +32,9 @@ func interact() -> void:
 	pass;
 
 func on_body_entered(body: Node2D) -> void:
+	if not interaction_box.active:
+		return;
+
 	if body.is_in_group("player"):
 		activated = true;
 
@@ -39,6 +42,9 @@ func on_body_entered(body: Node2D) -> void:
 			interaction_box.activate();
 
 func on_body_exited(body: Node2D) -> void:
+	if not interaction_box.active:
+		return;
+
 	if body.is_in_group("player"):
 		activated = false;
 
