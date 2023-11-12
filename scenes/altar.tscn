@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cssk08bxlg2dk"]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Texture2D" uid="uid://dujw7en0q0xng" path="res://assets/altar/altar.png" id="1_uctgc"]
-[ext_resource type="Script" path="res://scenes/altar.gd" id="1_up0ts"]
+[ext_resource type="Script" path="res://scripts/altar.gd" id="1_up0ts"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gexse"]
 radius = 33.0

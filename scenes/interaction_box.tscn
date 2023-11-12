@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cgo4xxphub541"]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Texture2D" uid="uid://barb4cwjdrtqm" path="res://assets/interaction_window/get.box.png" id="1_3qi5m"]
-[ext_resource type="Script" path="res://scenes/interaction_box.gd" id="1_r24ji"]
+[ext_resource type="Script" path="res://scripts/interaction_box.gd" id="1_r24ji"]
 [ext_resource type="Texture2D" uid="uid://cmrowthfxtthc" path="res://assets/interaction_window/interaction_window_text.png" id="2_8rw1b"]
 
 [sub_resource type="Animation" id="Animation_ihuah"]

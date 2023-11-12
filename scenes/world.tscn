@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bqd3u7ckn1gnb"]
+[gd_scene load_steps=26 format=3 uid="uid://bqd3u7ckn1gnb"]
 
 [ext_resource type="Texture2D" uid="uid://bveevdexnw4lh" path="res://assets/grass.png" id="1_3chc3"]
 [ext_resource type="Texture2D" uid="uid://cn2ltqx2qnao8" path="res://assets/tilemap-5.png" id="1_h734t"]
@@ -12,9 +12,10 @@
 [ext_resource type="PackedScene" path="res://scenes/tree.tscn" id="8_mfi27"]
 [ext_resource type="PackedScene" uid="uid://c1obbhipkyr3n" path="res://scenes/candle.tscn" id="9_xlxfe"]
 [ext_resource type="PackedScene" uid="uid://gj1itosfkbj5" path="res://scenes/bush.tscn" id="10_cm6iy"]
-[ext_resource type="PackedScene" uid="uid://bbvaks0pey04c" path="res://scenes/grass.tscn" id="10_hlsit"]
+[ext_resource type="PackedScene" path="res://scenes/grass.tscn" id="10_hlsit"]
 [ext_resource type="Script" path="res://scripts/object_field_generator.gd" id="10_otk5e"]
-[ext_resource type="PackedScene" uid="uid://cssk08bxlg2dk" path="res://scenes/altar.tscn" id="13_pkuie"]
+[ext_resource type="PackedScene" path="res://scenes/altar.tscn" id="13_pkuie"]
+[ext_resource type="PackedScene" uid="uid://bqalsaf4e8wd4" path="res://scenes/fly_guy.tscn" id="14_0nagt"]
 [ext_resource type="PackedScene" uid="uid://dbnmausavd26l" path="res://scenes/gem.tscn" id="14_4f2jb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_135q8"]
@@ -377,6 +378,7 @@ position = Vector2(36, 7)
 
 [node name="Bush" parent="Debris" instance=ExtResource("10_cm6iy")]
 position = Vector2(-57, 8)
+type = 1
 
 [node name="ObjectFieldSpawner" type="Node2D" parent="Debris" node_paths=PackedStringArray("shape")]
 position = Vector2(-11, -43)
@@ -392,10 +394,13 @@ polygon = PackedVector2Array(0, 0, -17, 1, -19, -8, -6, -11, 12, -11, 21, -2)
 y_sort_enabled = true
 
 [node name="Ghost" parent="Enemies" instance=ExtResource("3_j35ad")]
-position = Vector2(89, -64)
+position = Vector2(170, -391)
 
 [node name="Ghost2" parent="Enemies" instance=ExtResource("5_x8qsu")]
-position = Vector2(82, -21)
+position = Vector2(89, -406)
+
+[node name="FlyGuy" parent="Enemies" instance=ExtResource("14_0nagt")]
+position = Vector2(-118, -63)
 
 [node name="Interactables" type="Node2D" parent="."]
 

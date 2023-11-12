@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bblhe7a2sh4bm"]
+[gd_scene load_steps=46 format=3 uid="uid://bblhe7a2sh4bm"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ba28i"]
 [ext_resource type="Texture2D" uid="uid://c6eyrhawyuywt" path="res://assets/ik-spider-body.png" id="2_3s4wm"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://hitbox_attributes_resource.gd" id="11_wc1us"]
 [ext_resource type="PackedScene" uid="uid://cn7x6iqemeggg" path="res://scenes/trajectory_projectile_manager.tscn" id="11_wn4vn"]
 [ext_resource type="Texture2D" uid="uid://lpln02cn822c" path="res://assets/dash/dash_particles.png" id="12_cd6a3"]
+[ext_resource type="Script" path="res://scripts/player_camera.gd" id="14_3i1y2"]
 
 [sub_resource type="Animation" id="Animation_b7x01"]
 resource_name = "RESET"
@@ -1318,11 +1319,11 @@ texture_filter = 1
 material = SubResource("CanvasItemMaterial_rrkow")
 position = Vector2(0, -8)
 emitting = false
-amount = 10
+amount = 15
 process_material = SubResource("ParticleProcessMaterial_m1bwb")
 texture = ExtResource("12_cd6a3")
 one_shot = true
-explosiveness = 0.5
+explosiveness = 0.71
 
 [node name="ProjectileMarker" type="Marker2D" parent="Pivot"]
 position = Vector2(0, 17)
@@ -1343,6 +1344,7 @@ shape = SubResource("CircleShape2D_ko28f")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
+script = ExtResource("14_3i1y2")
 
 [node name="HealthManager" type="Node" parent="." node_paths=PackedStringArray("health_bar")]
 script = ExtResource("9_1uaqe")

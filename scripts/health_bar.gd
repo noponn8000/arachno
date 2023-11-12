@@ -1,25 +1,32 @@
 class_name HealthBar
-extends Control;
+extends Node;
 
 @onready var health_bar_middle = $Control/HealthBarMiddle
 @onready var animation_player = $AnimationPlayer
-@onready var area := $Area2D;
-@onready var label := $Label;
 
 @export var max_health := 32;
 @export var animation_speed := 3.0;
+@export var is_main := false;
 
 var _hp := max_health;
+var area;
+var label;
 
 func _ready() -> void:
-	area.mouse_entered.connect(entered);
-	area.mouse_exited.connect(exited);
+	if is_main:
+		area = $Area2D;
+		label = $Label;
+		area.mouse_entered.connect(entered);
+		area.mouse_exited.connect(exited);
+
+	set_health(_hp, false);
 
 func set_health(hp: int, animate: bool = true) -> void:
 	var dx := 1.0 / float(max_health);
 	_hp = hp;
 
-	label.text = str(_hp) + " / " + str(max_health);
+	if is_main:
+		label.text = str(_hp) + " / " + str(max_health);
 
 	if animate:
 		var tween = get_tree().create_tween();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b38y3at01uha7"]
+[gd_scene load_steps=32 format=3 uid="uid://b38y3at01uha7"]
 
 [ext_resource type="Script" path="res://scripts/ghost.gd" id="1_rpvi4"]
 [ext_resource type="Script" path="res://scripts/ScytheSwing.gd" id="2_5j26t"]
@@ -12,8 +12,9 @@
 [ext_resource type="Script" path="res://scripts/Hitbox.gd" id="7_sdfg6"]
 [ext_resource type="Script" path="res://scripts/health_manager.gd" id="11_4r54t"]
 [ext_resource type="Script" path="res://scripts/damage_number_component.gd" id="12_87d8h"]
+[ext_resource type="PackedScene" uid="uid://cb0tbgx7dsn1l" path="res://scenes/health_bar_common.tscn" id="12_fh1yw"]
 [ext_resource type="Script" path="res://scripts/pathfinding_enemy_ai.gd" id="13_ddhju"]
-[ext_resource type="PackedScene" uid="uid://cbo74de31eih3" path="res://scenes/damage_number.tscn" id="13_tl370"]
+[ext_resource type="PackedScene" path="res://scenes/damage_number.tscn" id="13_tl370"]
 
 [sub_resource type="Resource" id="Resource_cygv5"]
 script = ExtResource("4_b8ps0")
@@ -353,8 +354,18 @@ script = ExtResource("6_n4jda")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_yuvoe")
 
-[node name="HealthManager" type="Node" parent="."]
+[node name="HealthManager" type="Node" parent="." node_paths=PackedStringArray("health_bar")]
 script = ExtResource("11_4r54t")
+health_bar = NodePath("../HealthBar")
+hide_bar_when_full = true
+max_health = 80
+hp = 80
+
+[node name="HealthBar" parent="." instance=ExtResource("12_fh1yw")]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(-10, -14)
+scale = Vector2(0.5, 0.5)
+max_health = 80
 
 [node name="DamageNumberComponent" type="Node2D" parent="."]
 script = ExtResource("12_87d8h")

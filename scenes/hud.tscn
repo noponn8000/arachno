@@ -24,6 +24,7 @@ grow_vertical = 1
 scale = Vector2(4, 4)
 size_flags_horizontal = 0
 size_flags_vertical = 0
+is_main = true
 
 [node name="Inventory" parent="." instance=ExtResource("2_mby67")]
 process_mode = 2

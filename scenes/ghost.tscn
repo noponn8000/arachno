@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ctxu6dvrtq682"]
+[gd_scene load_steps=32 format=3 uid="uid://ctxu6dvrtq682"]
 
 [ext_resource type="Script" path="res://scripts/ghost.gd" id="1_nhq3i"]
 [ext_resource type="Texture2D" uid="uid://s7duu14ecji0" path="res://assets/ghost.png" id="1_wyd7b"]
@@ -11,8 +11,9 @@
 [ext_resource type="Script" path="res://scripts/Hitbox.gd" id="6_aqy4s"]
 [ext_resource type="Script" path="res://hitbox_attributes_resource.gd" id="6_mglf4"]
 [ext_resource type="Script" path="res://scripts/health_manager.gd" id="11_xl8a1"]
+[ext_resource type="PackedScene" uid="uid://cb0tbgx7dsn1l" path="res://scenes/health_bar_common.tscn" id="12_y8seh"]
 [ext_resource type="Script" path="res://scripts/damage_number_component.gd" id="12_yaidp"]
-[ext_resource type="PackedScene" uid="uid://cbo74de31eih3" path="res://scenes/damage_number.tscn" id="13_bgvym"]
+[ext_resource type="PackedScene" path="res://scenes/damage_number.tscn" id="13_bgvym"]
 [ext_resource type="Script" path="res://scripts/pathfinding_enemy_ai.gd" id="13_e0ju5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kv6b7"]
@@ -521,7 +522,7 @@ texture_filter = 1
 position = Vector2(5, -2)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_5bd57")
-animation = &"idle"
+animation = &"wave"
 autoplay = "wave"
 
 [node name="Arm2" type="AnimatedSprite2D" parent="Arms"]
@@ -529,7 +530,7 @@ texture_filter = 1
 position = Vector2(-2, -1)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_5bd57")
-animation = &"idle"
+animation = &"wave"
 autoplay = "wave"
 flip_h = true
 
@@ -600,8 +601,18 @@ script = ExtResource("4_vkxmp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_yuvoe")
 
-[node name="HealthManager" type="Node" parent="."]
+[node name="HealthManager" type="Node" parent="." node_paths=PackedStringArray("health_bar")]
 script = ExtResource("11_xl8a1")
+health_bar = NodePath("../HealthBar")
+hide_bar_when_full = true
+max_health = 80
+hp = 80
+
+[node name="HealthBar" parent="." instance=ExtResource("12_y8seh")]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(-10, -14)
+scale = Vector2(0.5, 0.5)
+max_health = 80
 
 [node name="DamageNumberComponent" type="Node2D" parent="."]
 script = ExtResource("12_yaidp")
@@ -614,6 +625,7 @@ script = ExtResource("13_e0ju5")
 nav_agent = NodePath("NavigationAgent2D")
 attack_radius = 20.0
 speed = 50.0
+offset = Vector2(0, 0)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="AI"]
 

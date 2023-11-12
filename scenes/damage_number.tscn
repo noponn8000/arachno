@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbo74de31eih3"]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scenes/damage_number.gd" id="1_yemvl"]
+[ext_resource type="Script" path="res://scripts/damage_number.gd" id="1_yemvl"]
 [ext_resource type="FontFile" uid="uid://c42xc0oidxw5k" path="res://assets/fonts/Pixellari.ttf" id="2_ejil0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tn0y4"]

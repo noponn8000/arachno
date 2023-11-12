@@ -2,6 +2,7 @@ class_name HealthManager;
 extends Node;
 
 @export var health_bar: HealthBar;
+@export var hide_bar_when_full := false;
 
 @export var max_health := 100;
 @export var hp := max_health;
@@ -16,6 +17,9 @@ func _ready() -> void:
 		health_bar.max_health = max_health;
 		health_bar.set_health(hp);
 
+		if hide_bar_when_full and hp == max_health:
+			health_bar.visible = false;
+
 		connect("health_changed", health_bar.set_health);
 
 func set_health(new_value: int) -> void:
@@ -25,6 +29,9 @@ func set_health(new_value: int) -> void:
 		emit_signal("health_depleted");
 	else:
 		emit_signal("health_changed", hp);
+
+	if health_bar and hide_bar_when_full:
+		health_bar.visible = hp != max_health;
 
 func get_health() -> int:
 	return hp;
