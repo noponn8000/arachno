@@ -7,4 +7,4 @@ A work-in-progress top-down hack and slash game made with Godot 4.1 where you pl
 ## Gameplay
 
 Dynamic, high-octane combat full of action and suspense, with a modular ability system
-![image](https://github.com/noponn8000/arachno/assets/76158002/8e35dcf1-1408-4449-b8aa-49163d366f8d)
+![Peek 2023-11-12 19-40](https://github.com/noponn8000/arachno/assets/76158002/2ac8b787-3120-40db-adbf-aedc4889680d)
