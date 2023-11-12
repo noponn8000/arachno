@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs7b4y206b1sr"]
+[gd_scene load_steps=8 format=3 uid="uid://bs7b4y206b1sr"]
 
 [ext_resource type="PackedScene" uid="uid://cp2qnrpkaatrq" path="res://scenes/inventory_window.tscn" id="1_2myry"]
 [ext_resource type="Script" path="res://scripts/inventory.gd" id="1_dm7no"]
 [ext_resource type="Texture2D" uid="uid://dia0dlr1xk5b" path="res://assets/inventory/spider.png" id="2_spq03"]
+[ext_resource type="FontFile" uid="uid://c42xc0oidxw5k" path="res://assets/fonts/Pixellari.ttf" id="3_3hfu6"]
 [ext_resource type="Texture2D" uid="uid://c12is4oavpp4j" path="res://assets/inventory/notches.png" id="3_sowwc"]
 [ext_resource type="Script" path="res://scripts/inventory_notch.gd" id="5_vpu0n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hm8eh"]
+font = ExtResource("3_3hfu6")
+font_color = Color(0.564706, 0.443137, 0.403922, 1)
+outline_size = 5
+outline_color = Color(0.211765, 0.156863, 0.168627, 1)
 
 [node name="Inventory" type="Control" groups=["inventory"]]
 layout_mode = 3
@@ -28,6 +35,16 @@ scale = Vector2(4, 4)
 mouse_filter = 2
 window_width = 196.0
 window_height = 128.0
+
+[node name="Label" type="Label" parent="InventoryWindow"]
+layout_mode = 1
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 79.0
+offset_bottom = 35.0
+scale = Vector2(0.5, 0.5)
+text = "Inventory"
+label_settings = SubResource("LabelSettings_hm8eh")
 
 [node name="Spider" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -144,7 +161,7 @@ sprite_index = 8
 position = Vector2(-12.5, -8.5)
 
 [node name="SideNotches" type="Node2D" parent="."]
-position = Vector2(-331, -186)
+position = Vector2(-325, -110)
 
 [node name="Items" type="Control" parent="."]
 anchors_preset = 0

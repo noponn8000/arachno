@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://u6c65qq1lvg5"]
+[gd_scene load_steps=11 format=3 uid="uid://u6c65qq1lvg5"]
 
 [ext_resource type="Script" path="res://scripts/health_bar.gd" id="1_mpng2"]
 [ext_resource type="Texture2D" uid="uid://carknvhkake85" path="res://assets/healthframeend.png" id="1_uuk1y"]
 [ext_resource type="Texture2D" uid="uid://fl03ajlc5f2e" path="res://assets/healthframemiddle.png" id="2_5yu1e"]
 [ext_resource type="Texture2D" uid="uid://bet5aasg72f2h" path="res://assets/heart.png" id="3_2yl5k"]
 [ext_resource type="Texture2D" uid="uid://bosvcogklo05q" path="res://assets/healthbarmiddle.png" id="4_41viw"]
+[ext_resource type="FontFile" uid="uid://c42xc0oidxw5k" path="res://assets/fonts/Pixellari.ttf" id="6_wessv"]
 
 [sub_resource type="Animation" id="Animation_5b4e1"]
 resource_name = "shake"
@@ -27,6 +28,16 @@ _data = {
 "shake": SubResource("Animation_5b4e1")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kd8mc"]
+size = Vector2(43.5, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3wxc4"]
+font = ExtResource("6_wessv")
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
 [node name="HealthBar" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -34,6 +45,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_mpng2")
 
 [node name="Control" type="Control" parent="."]
@@ -41,6 +53,7 @@ anchors_preset = 0
 offset_left = 1.0
 offset_right = 41.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="HealthFrameEnd" type="Sprite2D" parent="Control"]
 texture_filter = 1
@@ -74,3 +87,19 @@ region_rect = Rect2(0, 0, 32, 8)
 libraries = {
 "": SubResource("AnimationLibrary_nft4v")
 }
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(22, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_kd8mc")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 8.0
+offset_right = 40.0
+offset_bottom = 31.0
+scale = Vector2(0.5, 0.5)
+text = "health preview"
+label_settings = SubResource("LabelSettings_3wxc4")
