@@ -5,12 +5,16 @@ extends Area2D;
 
 @export var scaling := 1.0;
 
+signal hit_dealt;
+
 func _ready() -> void:
 	connect("area_entered", _on_area_entered);
 
 func _on_area_entered(other: Area2D) -> void:
 	if other is Hurtbox:
 		other.register_hit(self);
+
+		emit_signal("hit_dealt");
 
 func get_hit_data() -> HitDataResource:
 	if randf() < attrs.crit_chance:

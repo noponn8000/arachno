@@ -12,6 +12,7 @@ extends CharacterBody2D
 
 var state := STATE.CHASE;
 var impulse := Vector2.ZERO;
+var charging := false;
 var flipped := false;
 
 enum STATE { IDLE, CHASE, ATTACK, DAMAGE }
@@ -24,25 +25,35 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if state == STATE.CHASE or state == STATE.IDLE:
-		update_sprite_direction();
 
-		velocity = ai.get_velocity();
+		if not charging:
+			update_sprite_direction;
 
-		if velocity != Vector2.ZERO:
-			state = STATE.CHASE;
-		else:
-			state = STATE.IDLE;
+			velocity = ai.get_velocity();
+
+			if velocity != Vector2.ZERO:
+				state = STATE.CHASE;
+			else:
+				state = STATE.IDLE;
 	elif state == STATE.DAMAGE:
 		velocity = impulse;
 
 	move_and_slide();
+	if (
+		global_position.distance_to(Global.player.global_position) < charge_range
+		and state != STATE.DAMAGE
+	):
+		charge();
 
-	if ai.is_attacking() and state != STATE.DAMAGE:
-		attack();
+	if get_slide_collision_count() > 0 and charging:
+		charging = false;
+		velocity = Vector2.ZERO;
+		anim.play("fly");
 
 func on_damage_taken(hitbox: Hitbox) -> void:
 	anim.play("take_damage");
 	state = STATE.DAMAGE;
+	charging = false;
 
 	var hit_data = hitbox.get_hit_data();
 	dmg_numbers.spawn_number(hit_data.damage, hit_data.critical);
@@ -60,46 +71,24 @@ func on_damage_taken(hitbox: Hitbox) -> void:
 	state = STATE.IDLE;
 	anim.play("fly");
 
-func attack() -> void:
-	if anim.current_animation == "bite" or anim.current_animation == "bite_flipped":
+func charge() -> void:
+	if charging:
 		return;
 
-	state = STATE.ATTACK;
-
-	# Drift away from player
+	charging = true;
 	velocity = Vector2.ZERO;
-	anim.play("fly");
-	var tween = get_tree().create_tween();
-	tween.tween_property(
-		self,
-		"global_position",
-		global_position - (ai.direction_to_player * 10),
-		0.5
-	);
+	await get_tree().create_timer(0.5).timeout;
+	update_sprite_direction();
 
-	await tween.finished;
-
-	tween = get_tree().create_tween();
-	tween.tween_property(
-		self,
-		"global_position",
-		global_position + (ai.direction_to_player * min(50, global_position.distance_to(Global.player.global_position))),
-		0.5
-	);
-
-	if ai.direction_to_player.x >= 0:
-		anim.play("bite");
-		flip_h(false);
+	velocity = ai.direction_to_player * charge_speed;
+	if not flipped:
+		anim.play("attack");
 	else:
-		anim.play("bite_flipped");
-		flip_h(true);
+		anim.play("attack_flipped");
 
-	await anim.animation_finished;
-
-	velocity = Vector2.ZERO;
-	state = STATE.CHASE;
-
-	anim.play("fly");
+	get_tree().create_timer(charge_duration).timeout.connect(
+		func() : charging = false; velocity = Vector2.ZERO; anim.play("fly"); state = STATE.IDLE
+	);
 
 func die() -> void:
 	var tween = get_tree().create_tween();
