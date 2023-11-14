@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cb0tbgx7dsn1l"]
+[gd_scene load_steps=7 format=3 uid="uid://i8b03phmh3qd"]
 
 [ext_resource type="Script" path="res://scripts/health_bar.gd" id="1_d5g7j"]
-[ext_resource type="Texture2D" uid="uid://carknvhkake85" path="res://assets/healthframeend.png" id="2_f6gas"]
-[ext_resource type="Texture2D" uid="uid://fl03ajlc5f2e" path="res://assets/healthframemiddle.png" id="3_n1lm8"]
-[ext_resource type="Texture2D" uid="uid://bet5aasg72f2h" path="res://assets/heart.png" id="4_3a6v6"]
-[ext_resource type="Texture2D" uid="uid://bosvcogklo05q" path="res://assets/healthbarmiddle.png" id="5_a8d7o"]
-[ext_resource type="FontFile" uid="uid://c42xc0oidxw5k" path="res://assets/fonts/Pixellari.ttf" id="6_6ihws"]
+[ext_resource type="Texture2D" uid="uid://buxd6lt6xb4w1" path="res://assets/health_bar_common/enemyframeextendable.png" id="2_kotns"]
+[ext_resource type="Texture2D" uid="uid://b37ep7177k2x4" path="res://assets/health_bar_common/enemyhealthbarframe.png" id="3_ckoo6"]
+[ext_resource type="Texture2D" uid="uid://c53xb3law222m" path="res://assets/health_bar_common/enemybarmiddle.png" id="4_h3h7w"]
 
 [sub_resource type="Animation" id="Animation_5b4e1"]
 resource_name = "shake"
@@ -28,16 +26,6 @@ _data = {
 "shake": SubResource("Animation_5b4e1")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kd8mc"]
-size = Vector2(43.5, 8)
-
-[sub_resource type="LabelSettings" id="LabelSettings_3wxc4"]
-font = ExtResource("6_6ihws")
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 5
-shadow_color = Color(0, 0, 0, 1)
-
 [node name="HealthBar" type="Node2D"]
 script = ExtResource("1_d5g7j")
 
@@ -49,31 +37,27 @@ offset_right = 41.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="HealthFrameEnd" type="Sprite2D" parent="Control"]
-texture_filter = 1
-position = Vector2(33.75, 4)
-texture = ExtResource("2_f6gas")
-
 [node name="HealthFrameMiddle" type="Sprite2D" parent="Control"]
-texture_filter = 1
-position = Vector2(8, 4)
-texture = ExtResource("3_n1lm8")
-offset = Vector2(9, 0)
-region_enabled = true
-region_rect = Rect2(0, 0, 18, 8)
+position = Vector2(16, 4)
+scale = Vector2(2.25, 1)
+texture = ExtResource("2_kotns")
 
-[node name="Heart" type="Sprite2D" parent="Control"]
-texture_filter = 1
-position = Vector2(4, 4)
-texture = ExtResource("4_3a6v6")
+[node name="HealthFrameEnd" type="Sprite2D" parent="Control"]
+position = Vector2(25, 4)
+texture = ExtResource("3_ckoo6")
+
+[node name="HealthFrameBeggining" type="Sprite2D" parent="Control"]
+position = Vector2(5, 4)
+texture = ExtResource("3_ckoo6")
+flip_h = true
 
 [node name="HealthBarMiddle" type="Sprite2D" parent="Control"]
+modulate = Color(1, 0, 0, 1)
 texture_filter = 1
-position = Vector2(8, 4)
-texture = ExtResource("5_a8d7o")
+position = Vector2(15, 4)
+texture = ExtResource("4_h3h7w")
 centered = false
-offset = Vector2(0, -4)
-flip_h = true
+offset = Vector2(-16, -4)
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 8)
 
@@ -81,19 +65,3 @@ region_rect = Rect2(0, 0, 32, 8)
 libraries = {
 "": SubResource("AnimationLibrary_nft4v")
 }
-
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
-position = Vector2(22, 4)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_kd8mc")
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_top = 8.0
-offset_right = 40.0
-offset_bottom = 31.0
-scale = Vector2(0.5, 0.5)
-text = "health preview"
-label_settings = SubResource("LabelSettings_3wxc4")

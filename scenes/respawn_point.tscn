@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxb3aifij81jm"]
+
+[ext_resource type="Script" path="res://scripts/respawn_point.gd" id="1_ya5em"]
+[ext_resource type="Texture2D" uid="uid://brgrua8le7lvd" path="res://assets/respawn_point/respawn_totem.png" id="2_cvmk3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rmh7f"]
+radius = 45.2769
+
+[node name="RespawnPoint" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_ya5em")
+
+[node name="RespawnTotem" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("2_cvmk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_rmh7f")

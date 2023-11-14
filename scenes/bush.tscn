@@ -51,6 +51,7 @@ hframes = 2
 vframes = 2
 
 [node name="Leaves" type="Sprite2D" parent="."]
+z_index = 1
 material = SubResource("ShaderMaterial_xgy76")
 position = Vector2(0, -3.25)
 scale = Vector2(0.5, 0.5)

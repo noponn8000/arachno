@@ -24,7 +24,7 @@ func _ready() -> void:
 		add_child(interaction_box);
 		interaction_box.position = interaction_box_offset;
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and activated:
 		interact();
 

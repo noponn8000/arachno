@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://cbmdfnp42rvt0"]
+
+[ext_resource type="Script" path="res://scripts/grass.gd" id="1_ku3f1"]
+[ext_resource type="Shader" path="res://scenes/shake.gdshader" id="1_xccaf"]
+[ext_resource type="Texture2D" uid="uid://b3eupf6ixte1n" path="res://assets/bush/bush_particle.png" id="3_dq2ll"]
+[ext_resource type="Texture2D" uid="uid://b65juk4qg14c2" path="res://assets/grass/cat_tail.png" id="3_pl1d6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8yriw"]
+resource_local_to_scene = true
+shader = ExtResource("1_xccaf")
+shader_parameter/deformation = 0.0
+
+[sub_resource type="Curve" id="Curve_p305l"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_deelq"]
+curve = SubResource("Curve_p305l")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xipx5"]
+emission_shape = 2
+emission_sphere_radius = 7.0
+particle_flag_disable_z = true
+direction = Vector3(0, -10, 0)
+gravity = Vector3(0, 90, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 360.0
+scale_min = 0.1
+scale_max = 0.25
+hue_variation_max = 0.1
+hue_variation_curve = SubResource("CurveTexture_deelq")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bhdwe"]
+radius = 3.0
+
+[node name="Grass" type="Node2D"]
+script = ExtResource("1_ku3f1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8yriw")
+texture = ExtResource("3_pl1d6")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_xipx5")
+texture = ExtResource("3_dq2ll")
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_bhdwe")

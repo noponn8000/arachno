@@ -18,6 +18,7 @@ enum STATE {WALKING, IDLE, ATTACKING, DASHING, WINDUP};
 @onready var dash_sprite := $Pivot/DashSprite;
 @onready var hitbox = $Pivot/BiteSprite/BiteArea2D;
 
+@export var respawn_manager: RespawnManager;
 @export var movement_speed := 100.0;
 @export var rotation_speed := 0.5; # Rotation speed between 0.0 and 1.0
 @export var acceleration := 50.0;
@@ -27,7 +28,8 @@ enum STATE {WALKING, IDLE, ATTACKING, DASHING, WINDUP};
 @export var dash_duration := 0.25;
 @export var projectile_cooldown := 0.5;
 @export var projectile_windup_duration := 1.0;
-@export var heavy_attack_max_windup := 2.0;
+@export var heavy_attack_max_windup := 1.5;
+@export var heavy_attack_cooldown := 0.5;
 
 var state: STATE;
 var input_direction := Vector2.ZERO;
@@ -46,6 +48,7 @@ var projectile_windup_timer := 0.0;
 
 # Attacks
 var heavy_attack_windup_timer := 0.0;
+var heavy_attack_cooldown_finished := true;
 
 enum AttackType { LIGHT, HEAVY };
 
@@ -57,6 +60,7 @@ func _ready() -> void:
 	update_fang_sprites();
 
 	hurtbox.connect("damage_taken", on_damage_taken);
+	health_manager.connect("health_depleted", respawn);
 
 	Global.player = self;
 
@@ -71,8 +75,10 @@ func _physics_process(delta) -> void:
 
 	if Input.is_action_pressed("attack1"):
 		attack(AttackType.LIGHT);
-	elif Input.is_action_pressed("attack2"):
-		fang_anim.play("fang_turn");
+	elif Input.is_action_pressed("attack2") and heavy_attack_cooldown_finished:
+		if heavy_attack_windup_timer < 1.0 and fang_anim.current_animation != "fang_turn":
+			fang_anim.play("fang_turn");
+
 		heavy_attack_windup_timer += delta;
 
 		if heavy_attack_windup_timer >= heavy_attack_max_windup:
@@ -119,7 +125,10 @@ func dash() -> void:
 
 	dash_sprite.frame = 0;
 	dash_sprite.play();
-	dash_sprite.global_rotation = Vector2.DOWN.angle_to(input_direction.normalized());
+	if input_direction != Vector2.ZERO:
+		dash_sprite.global_rotation = Vector2.DOWN.angle_to(input_direction.normalized());
+	else:
+		dash_sprite.global_rotation = Vector2.DOWN.angle_to(-global_position.direction_to(get_global_mouse_position()));
 
 	dash_particles.restart();
 	get_tree().create_timer(dash_duration).connect("timeout", dash_finished);
@@ -205,13 +214,18 @@ func attack(type: AttackType) -> void:
 		heavy_attack_windup_timer = 0.0;
 		update_fang_sprites();
 
+		heavy_attack_cooldown_finished = false;
+		get_tree().create_timer(heavy_attack_cooldown).timeout.connect(func(): heavy_attack_cooldown_finished = true);
+
 	await attack_anim.animation_finished;
 	$Pivot/BiteSprite.scale = Vector2.ONE;
 	state = STATE.IDLE;
 
 func update_fang_sprites() -> void:
-	if fang_anim.current_animation != "fang_turn":
+	if heavy_attack_windup_timer == 0:
+		print("hi");
 		fang_anim.play("RESET");
+
 	fang_sprite_l.modulate = Color.WHITE;
 	fang_sprite_r.modulate = Color.WHITE;
 	if heavy_attack_windup_timer == 0:
@@ -244,3 +258,6 @@ func dash_finished() -> void:
 
 func on_damage_taken(hitbox: Hitbox) -> void:
 	health_manager.change_health(-hitbox.get_hit_data().damage);
+
+func respawn() -> void:
+	global_position = respawn_manager.get_closest_respawn_point().get_respawn_position();

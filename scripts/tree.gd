@@ -8,7 +8,7 @@ enum TREE_TYPE {MEDIUM, SMALL, LARGE};
 func _ready() -> void:
 	update_type();
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		update_type();
 

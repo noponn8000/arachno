@@ -1,23 +1,111 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=14 format=3 uid="uid://bhkvuol2y6pfi"]
 
-[ext_resource type="Texture2D" uid="uid://dujw7en0q0xng" path="res://assets/altar/altar.png" id="1_uctgc"]
 [ext_resource type="Script" path="res://scripts/altar.gd" id="1_up0ts"]
+[ext_resource type="Texture2D" uid="uid://cpays182lx6x5" path="res://assets/altar/altar_see-through.png" id="2_ullvc"]
+[ext_resource type="Texture2D" uid="uid://chc1wvnb2cn3g" path="res://assets/altar/altar_particle.png" id="3_102n1"]
+[ext_resource type="Texture2D" uid="uid://doumxm3dyy8oa" path="res://assets/inventory/gem_acquired.png" id="4_bnbuo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gexse"]
 radius = 33.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmoa2"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r7hcj"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_khecp"]
+max_value = 5.0
+_data = [Vector2(0.813239, 0.227273), 0.0, 0.0, 0, 0, Vector2(0.978723, 1.04545), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_04w8l"]
+curve = SubResource("Curve_khecp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_odqwv"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 60.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 15.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 10.0
+damping_max = 10.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_speed_curve = SubResource("CurveTexture_04w8l")
+
+[sub_resource type="Animation" id="Animation_aqa8p"]
+resource_name = "gem_acquire"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GemAcquire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_5ham2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GemAcquire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m3vox"]
+_data = {
+"RESET": SubResource("Animation_5ham2"),
+"gem_acquire": SubResource("Animation_aqa8p")
+}
+
 [node name="Altar" type="StaticBody2D"]
 script = ExtResource("1_up0ts")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_gexse")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_uctgc")
+texture = ExtResource("2_ullvc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_bmoa2")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_r7hcj")
+position = Vector2(0, -4)
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_odqwv")
+texture = ExtResource("3_102n1")
+
+[node name="GemAcquire" type="Sprite2D" parent="."]
+position = Vector2(-1, -4.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_bnbuo")
+hframes = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m3vox")
+}

@@ -9,7 +9,7 @@ func _ready() -> void:
 
 	place_objects();
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (Engine.is_editor_hint()):
 		place_objects();
 		#create_polygon();

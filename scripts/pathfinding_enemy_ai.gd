@@ -3,17 +3,12 @@ extends SimpleEnemyAI
 
 enum AI_STATE {CHASING, SEARCHING};
 
-@export var nav_agent: NavigationAgent2D = get_child(0);
-
-@onready var timer := Timer.new();
+@export var nav_agent: NavigationAgent2D;
 
 var state := AI_STATE.CHASING;
 
 func _ready() -> void:
-	timer.connect("timeout", update_target_position);
 	update_target_position();
-
-	add_child(timer);
 
 func _physics_process(delta: float) -> void:
 	if Global.player.concealed:
@@ -33,7 +28,7 @@ func _physics_process(delta: float) -> void:
 
 func update_target_position() -> void:
 	nav_agent.target_position = player.global_position;
-	timer.start(0.1);
+	get_tree().create_timer(0.2).timeout.connect(update_target_position);
 
 func search() -> void:
 	await get_tree().create_timer(2.0).timeout;
